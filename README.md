@@ -50,11 +50,11 @@ To start the server, run:
 node index.js
 ```
 
-The server will run on http://localhost:3002.
+The server will run on http://localhost.
 
 Main endpoint to fetch node statistics:
 ```
-GET http://localhost:3002/
+GET http://localhost/
 ```
 
 ## API Endpoints
@@ -74,7 +74,7 @@ Exposes Prometheus metrics for monitoring.
 
 The application uses `prom-client` to expose various metrics related to Mysterium nodes.
 
-Metrics can be accessed at [http://localhost:3002/metrics](http://localhost:3002/metrics).
+Metrics can be accessed at [http://localhost/metrics](http://localhost/metrics).
 
 ## License
 
