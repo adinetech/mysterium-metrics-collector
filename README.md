@@ -72,11 +72,7 @@ Exposes Prometheus metrics for monitoring.
 
 ## Metrics
 
-The application uses `prom-client` to expose various metrics related to Mysterium nodes, including:
-- **Total number of Mysterium nodes**
-- **Average quality and latency**
-- **Bandwidth statistics per country**
-- **Current registration fees**
+The application uses `prom-client` to expose various metrics related to Mysterium nodes.
 
 Metrics can be accessed at [http://localhost:3002/metrics](http://localhost:3002/metrics).
 
