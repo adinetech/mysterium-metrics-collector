@@ -1,9 +1,10 @@
+
 import express from 'express';
 import fetch from 'node-fetch';
 import client from 'prom-client';
 
 const app = express();
-const port = 3002;
+const port = 80;
 
 // Available functions - fetchAllProposals, fetchPublicProposals, fetchRegistrationFee, ServicePricing.
 
