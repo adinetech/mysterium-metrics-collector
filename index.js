@@ -41,54 +41,54 @@ const register = new client.Registry();
 
 const totalNodesGauge = new client.Gauge({
   name: 'mysterium_total_nodes',
-  help: 'Total number of Mysterium nodes',
+  help: 'Total number of Mysterium Network Nodes',
 });
 const publicNodesGauge = new client.Gauge({
   name: 'mysterium_public_nodes',
-  help: 'Total number of public Mysterium nodes',
+  help: 'Total number of public Mysterium Network Nodes',
 });
 const avgQualityGauge = new client.Gauge({
   name: 'mysterium_avg_quality',
-  help: 'Average quality of Mysterium nodes',
+  help: 'Average quality of Mysterium Network Nodes',
 });
 const avgLatencyGauge = new client.Gauge({
   name: 'mysterium_avg_latency',
-  help: 'Average latency of Mysterium nodes',
+  help: 'Average latency of Mysterium Network Nodes',
 });
 
 const totalBandwidthGauge = new client.Gauge({
   name: 'mysterium_total_bandwidth',
-  help: 'Total bandwidth of the Mysterium nodes',
+  help: 'Total bandwidth of the Mysterium Network Nodes',
 });
 
 const avgBandwidthGauge = new client.Gauge({
   name: 'mysterium_avg_bandwidth',
-  help: 'Average bandwidth of Mysterium nodes',
+  help: 'Average bandwidth of Mysterium Network Nodes',
 });
 
 const avgPublicQualityGauge = new client.Gauge({
   name: 'mysterium_avg_public_quality',
-  help: 'Average quality of public Mysterium nodes',
+  help: 'Average quality of public Mysterium Network Nodes',
 });
 
 const avgPublicLatencyGauge = new client.Gauge({
   name: 'mysterium_avg_public_latency',
-  help: 'Average latency of public Mysterium nodes',
+  help: 'Average latency of public Mysterium Nodes',
 });
 
 const totalPublicBandwidthGauge = new client.Gauge({
   name: 'mysterium_total_public_bandwidth',
-  help: 'Total bandwidth of the public Mysterium Network',
+  help: 'Total bandwidth of the public Mysterium Network Nodes',
 });
 
 const avgPublicBandwidthGauge = new client.Gauge({
   name: 'mysterium_avg_public_bandwidth',
-  help: 'Average bandwidth of public Mysterium nodes',
+  help: 'Average bandwidth of public Mysterium Network Nodes',
 });
 
 const feeGauge = new client.Gauge({
   name: 'mysterium_current_fee',
-  help: 'Mysterium registration/settlement fees in MYST - powered by Transactor API.',
+  help: 'Mysterium Network registration/settlement fees in MYST - powered by Transactor API.',
 });
 
 const residential_wireguard_gib = new client.Gauge({
@@ -331,7 +331,6 @@ app.get('/', async (req, res) => {
 
 client.collectDefaultMetrics({ register });
 
-// Endpoint to expose metrics
 app.get('/metrics', async (req, res) => {
   res.set('Content-Type', register.contentType);
   res.end(await register.metrics());
@@ -339,12 +338,12 @@ app.get('/metrics', async (req, res) => {
 
 setInterval(async () => {
   try {
-    await fetch('http://localhost:3002');
+    await fetch('http://localhost');
   } catch (error) {
     console.error('Failed to fetch node statistics:', error);
   }
 }
-, 60000); //60000 - 20 sec.
+, 60000); //60000 - 1 min
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
