@@ -418,6 +418,23 @@ app.get('/public_total_bandwidth', async (req, res) => { // in gbps
   }
 });
 
+app.get('/avg_quality', async (req, res) => {
+  try {
+    const data = await fetchAllProposals();
+    let total_quality = 0;
+    data.forEach(item => {
+      if (item.quality) {
+        total_quality += item.quality.quality || 0;
+      }
+    });
+    const avg_quality = total_quality / data.length;
+    res.json({ avg_quality });
+  } catch (error) {
+    console.error('Failed to fetch average quality:', error);
+    res.status(500).json({ error: 'Failed to fetch average quality' });
+  }
+});
+
 setInterval(async () => {
   try {
     await fetch('http://localhost');
