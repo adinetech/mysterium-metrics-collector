@@ -376,6 +376,16 @@ app.get("/providers-count", async (req, res) => {
   }
 });
 
+app.get("/public-providers-count", async (req, res) => {
+  try {
+    const data = await fetchPublicProposals();
+    res.json({ total_providers: data.length });
+  } catch (error) {
+    console.error('Failed to fetch public provider count:', error);
+    res.status(500).json({ error: 'Failed to fetch public provider count' });
+  }
+});
+
 setInterval(async () => {
   try {
     await fetch('http://localhost');
