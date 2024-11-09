@@ -346,6 +346,16 @@ app.get('/fee', async (req, res) => {
   }
 });
 
+app.get('/price', async (req, res) => {
+  try {
+    const price = await ServicePricing();
+    res.json(price);
+  } catch (error) {
+    console.error('Failed to fetch service pricing:', error);
+    res.status(500).json({ error: 'Failed to fetch service pricing' });
+  }
+});
+
 setInterval(async () => {
   try {
     await fetch('http://localhost');
