@@ -402,6 +402,22 @@ app.get('/total_bandwidth', async (req, res) => { // in gbps
   }
 });
 
+app.get('/public_total_bandwidth', async (req, res) => { // in gbps
+  try {
+    const data = await fetchPublicProposals();
+    let total_bandwidth = 0;
+    data.forEach(item => {
+      if (item.quality) {
+        total_bandwidth += item.quality.bandwidth || 0;
+      }
+    });
+    res.json({ total_bandwidth });
+  } catch (error) {
+    console.error('Failed to fetch public total bandwidth:', error);
+    res.status(500).json({ error: 'Failed to fetch public total bandwidth' });
+  }
+});
+
 setInterval(async () => {
   try {
     await fetch('http://localhost');
