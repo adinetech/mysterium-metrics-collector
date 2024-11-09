@@ -486,6 +486,16 @@ app.get('/public_avg_latency', async (req, res) => {
   }
 });
 
+app.get('/public_providers', async (req, res) => {
+    try {
+      const data = await fetchPublicProposals();
+      res.json({ public_providers: data.length });
+    } catch (error) {
+      console.error('Failed to fetch public providers:', error);
+      res.status(500).json({ error: 'Failed to fetch public providers' });
+    }
+});
+
 setInterval(async () => {
   try {
     await fetch('http://localhost');
