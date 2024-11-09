@@ -386,6 +386,22 @@ app.get("/public-providers-count", async (req, res) => {
   }
 });
 
+app.get('/total_bandwidth', async (req, res) => { // in gbps
+  try {
+    const data = await fetchAllProposals();
+    let total_bandwidth = 0;
+    data.forEach(item => {
+      if (item.quality) {
+        total_bandwidth += item.quality.bandwidth || 0;
+      }
+    });
+    res.json({ total_bandwidth });
+  } catch (error) {
+    console.error('Failed to fetch total bandwidth:', error);
+    res.status(500).json({ error: 'Failed to fetch total bandwidth' });
+  }
+});
+
 setInterval(async () => {
   try {
     await fetch('http://localhost');
