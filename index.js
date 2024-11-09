@@ -452,6 +452,23 @@ app.get('/public_avg_quality', async (req, res) => {
   }
 });
 
+app.get('/avg_latency', async (req, res) => {
+  try {
+    const data = await fetchAllProposals();
+    let total_latency = 0;
+    data.forEach(item => {
+      if (item.quality) {
+        total_latency += item.quality.latency || 0;
+      }
+    });
+    const avg_latency = total_latency / data.length;
+    res.json({ avg_latency });
+  } catch (error) {
+    console.error('Failed to fetch average latency:', error);
+    res.status(500).json({ error: 'Failed to fetch average latency' });
+  }
+});
+
 setInterval(async () => {
   try {
     await fetch('http://localhost');
