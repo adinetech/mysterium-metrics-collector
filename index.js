@@ -336,6 +336,16 @@ app.get('/metrics', async (req, res) => {
   res.end(await register.metrics());
 });
 
+app.get('/fee', async (req, res) => {
+  try {
+    const fee = await fetchRegistrationFee();
+    res.json({ fee });
+  } catch (error) {
+    console.error('Failed to fetch registration fee:', error);
+    res.status(500).json({ error: 'Failed to fetch registration fee' });
+  }
+});
+
 setInterval(async () => {
   try {
     await fetch('http://localhost');
