@@ -356,6 +356,16 @@ app.get('/price', async (req, res) => {
   }
 });
 
+app.get('/proposals', async (req, res) => {
+  try {
+    const data = await fetchAllProposals();
+    res.json(data);
+  } catch (error) {
+    console.error('Failed to fetch provider data:', error);
+    res.status(500).json({ error: 'Failed to fetch provider data' });
+  }
+});
+
 setInterval(async () => {
   try {
     await fetch('http://localhost');
