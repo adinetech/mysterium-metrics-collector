@@ -366,7 +366,7 @@ app.get('/proposals', async (req, res) => {
   }
 });
 
-app.get("/providers-count", async (req, res) => {
+app.get("/providers", async (req, res) => {
   try {
     const data = await fetchAllProposals();
     res.json({ total_providers: data.length });
