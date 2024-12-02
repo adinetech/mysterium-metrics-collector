@@ -276,17 +276,17 @@ app.get('/', async (req, res) => {
     const pubAvgbandwidth = pubTotalBandwidth / publicNodes;
 
     const responseData = {
-      total_nodes: totalNodes, //1
-      avg_quality: avgQuality, //2
-      avg_latency: avgLatency, //3
-      total_bandwidth: totalBandwidth, //4
-      avg_bandwidth: avgBandwidth, //5
-      public_nodes: publicNodes, //6
-      pub_avg_quality: pubAvgQuality, //7
-      pub_avg_latency: pubAvgLatency, //8
-      pub_total_bandwidth: pubTotalBandwidth, //9
-      pub_avg_bandwidth: pubAvgbandwidth, //10
-      current_fee: fee, //11
+      total_nodes: totalNodes, 
+      avg_quality: avgQuality, 
+      avg_latency: avgLatency, 
+      total_bandwidth: totalBandwidth, 
+      avg_bandwidth: avgBandwidth, 
+      public_nodes: publicNodes, 
+      pub_avg_quality: pubAvgQuality, 
+      pub_avg_latency: pubAvgLatency, 
+      pub_total_bandwidth: pubTotalBandwidth, 
+      pub_avg_bandwidth: pubAvgbandwidth, 
+      current_fee: fee, 
       residential_wireguard_gib: resi_wireguard_gib_value,
       residential_scraping_gib: resi_scraping_gib_value,
       residential_data_transfer_gib: resi_data_transfer_gib_value,
