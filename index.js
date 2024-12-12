@@ -496,6 +496,26 @@ app.get('/public_providers', async (req, res) => {
     }
 });
 
+app.get ('/help', async (req, res) => {
+  res.json({ 
+    endpoints: [
+      '/metrics',
+      '/fee',
+      '/price',
+      '/proposals',
+      '/providers',
+      '/public-providers-count',
+      '/total_bandwidth',
+      '/public_total_bandwidth',
+      '/avg_quality',
+      '/public_avg_quality',
+      '/avg_latency',
+      '/public_avg_latency',
+      '/public_providers',
+    ]
+  });
+}
+);
 setInterval(async () => {
   try {
     await fetch('http://localhost');
