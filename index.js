@@ -376,7 +376,7 @@ app.get("/providers", async (req, res) => { //5
   }
 });
 
-app.get("/public-providers-count", async (req, res) => { //6
+app.get("/public_providers", async (req, res) => { //6
   try {
     const data = await fetchPublicProposals();
     res.json({ total_providers: data.length });
@@ -506,7 +506,7 @@ app.get ('/help', async (req, res) => { //14
       '/price', //3
       '/proposals', //4
       '/providers', //5
-      '/public-providers-count', //6
+      '/public_providers', //6
       '/total_bandwidth', //7
       '/public_total_bandwidth', //8
       '/avg_quality', //9
