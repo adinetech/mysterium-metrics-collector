@@ -59,52 +59,47 @@ GET http://localhost/
 
 ## API Endpoints
 
-### `GET /`
-Returns a JSON response containing:
-- **Total number of nodes**
-- **Average quality and latency of nodes**
-- **Total and average bandwidth of nodes**
-- **Current registration fee**
-- **Bandwidth and node statistics per country**
+### Base URL
+`https://mysterium-api.adinetech.com/`
+
+### `GET /help`
+**Description**: Returns a JSON response containing the list of usable API Endpoints.
 
 ### `GET /metrics`
-Exposes Prometheus metrics for monitoring.
+**Description**: Exposes Prometheus metrics for monitoring.
 
 ### `GET /fee`:
-Retrieves the current registration or settlement fee in MYST from the Transactor API.
+**Description**: Retrieves the current registration / settlement fee in MYST from the Transactor API.
 
 ### `GET /price`:
-Fetches service pricing details from the Discovery API, including various pricing metrics for residential and other services.
+**Description**: Fetches service pricing details from the Discovery API, including various pricing metrics for residential and other services.
 
 ### `GET /proposals`:
-Returns a list of all proposals from the Mysterium network.
+**Description**: Returns a list of all proposals from the Mysterium network.
 
 ### `GET /providers`:
-Provides the total count of providers available in the network.
-
-### `GET /public-providers`:
-Returns the count of public providers available in the network.
+**Description**: Provides the total count of providers available in the network.
 
 ### `GET /total_bandwidth`:
-Calculates and returns the total bandwidth across all Mysterium nodes in Gbps.
+**Description**: Calculates and returns the total bandwidth across all Mysterium nodes in Gbps.
 
 ### `GET /public_total_bandwidth`:
-Calculates and returns the total bandwidth specifically for public Mysterium nodes in Gbps.
+**Description**: Calculates and returns the total bandwidth specifically for public Mysterium nodes in Gbps.
 
 ### `GET /avg_quality`:
-Computes and returns the average quality of all Mysterium nodes.
+**Description**: Computes and returns the average quality of all Mysterium nodes.
 
 ### `GET /public_avg_quality`:
-Computes and returns the average quality specifically for public Mysterium nodes.
+**Description**: Computes and returns the average quality specifically for public Mysterium nodes.
 
 ### `GET /avg_latency`:
-Computes and returns the average latency of all Mysterium nodes.
+**Description**: Computes and returns the average latency of all Mysterium nodes.
 
 ### `GET /public_avg_latency`:
-Computes and returns the average latency specifically for public Mysterium nodes.
+**Description**: Computes and returns the average latency specifically for public Mysterium nodes.
 
 ### `GET /public_providers`:
-Returns a count of public providers currently available in the network.
+**Description**: Returns a count of public providers currently available in the network.
 
 ## Metrics
 
