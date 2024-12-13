@@ -331,12 +331,12 @@ app.get('/', async (req, res) => {
 
 client.collectDefaultMetrics({ register });
 
-app.get('/metrics', async (req, res) => {
+app.get('/metrics', async (req, res) => { //1
   res.set('Content-Type', register.contentType);
   res.end(await register.metrics());
 });
 
-app.get('/fee', async (req, res) => {
+app.get('/fee', async (req, res) => { //2
   try {
     const fee = await fetchRegistrationFee();
     res.json({ fee });
@@ -346,7 +346,7 @@ app.get('/fee', async (req, res) => {
   }
 });
 
-app.get('/price', async (req, res) => {
+app.get('/price', async (req, res) => { //3
   try {
     const price = await ServicePricing();
     res.json(price);
@@ -356,7 +356,7 @@ app.get('/price', async (req, res) => {
   }
 });
 
-app.get('/proposals', async (req, res) => {
+app.get('/proposals', async (req, res) => { //4
   try {
     const data = await fetchAllProposals();
     res.json(data);
@@ -366,7 +366,7 @@ app.get('/proposals', async (req, res) => {
   }
 });
 
-app.get("/providers", async (req, res) => {
+app.get("/providers", async (req, res) => { //5
   try {
     const data = await fetchAllProposals();
     res.json({ total_providers: data.length });
@@ -376,7 +376,7 @@ app.get("/providers", async (req, res) => {
   }
 });
 
-app.get("/public-providers-count", async (req, res) => {
+app.get("/public-providers-count", async (req, res) => { //6
   try {
     const data = await fetchPublicProposals();
     res.json({ total_providers: data.length });
@@ -386,7 +386,7 @@ app.get("/public-providers-count", async (req, res) => {
   }
 });
 
-app.get('/total_bandwidth', async (req, res) => { // in gbps
+app.get('/total_bandwidth', async (req, res) => { // 7 - in Gbps
   try {
     const data = await fetchAllProposals();
     let total_bandwidth = 0;
@@ -402,7 +402,7 @@ app.get('/total_bandwidth', async (req, res) => { // in gbps
   }
 });
 
-app.get('/public_total_bandwidth', async (req, res) => { // in gbps
+app.get('/public_total_bandwidth', async (req, res) => { // 8 - in Gbps
   try {
     const data = await fetchPublicProposals();
     let total_bandwidth = 0;
@@ -418,7 +418,7 @@ app.get('/public_total_bandwidth', async (req, res) => { // in gbps
   }
 });
 
-app.get('/avg_quality', async (req, res) => {
+app.get('/avg_quality', async (req, res) => { // 9
   try {
     const data = await fetchAllProposals();
     let total_quality = 0;
@@ -435,7 +435,7 @@ app.get('/avg_quality', async (req, res) => {
   }
 });
 
-app.get('/public_avg_quality', async (req, res) => {
+app.get('/public_avg_quality', async (req, res) => { // 10
   try {
     const data = await fetchPublicProposals();
     let total_quality = 0;
@@ -452,7 +452,7 @@ app.get('/public_avg_quality', async (req, res) => {
   }
 });
 
-app.get('/avg_latency', async (req, res) => {
+app.get('/avg_latency', async (req, res) => { // 11
   try {
     const data = await fetchAllProposals();
     let total_latency = 0;
@@ -469,7 +469,7 @@ app.get('/avg_latency', async (req, res) => {
   }
 });
 
-app.get('/public_avg_latency', async (req, res) => {
+app.get('/public_avg_latency', async (req, res) => { // 12
   try {
     const data = await fetchPublicProposals();
     let total_latency = 0;
@@ -486,7 +486,7 @@ app.get('/public_avg_latency', async (req, res) => {
   }
 });
 
-app.get('/public_providers', async (req, res) => {
+app.get('/public_providers', async (req, res) => { // 13
     try {
       const data = await fetchPublicProposals();
       res.json({ public_providers: data.length });
@@ -496,7 +496,9 @@ app.get('/public_providers', async (req, res) => {
     }
 });
 
-app.get ('/help', async (req, res) => {
+//The code has 14 API Endpoints in total
+
+app.get ('/help', async (req, res) => { //14
   res.json({ 
     endpoints: [
       '/metrics', //1
