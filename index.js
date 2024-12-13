@@ -499,19 +499,19 @@ app.get('/public_providers', async (req, res) => {
 app.get ('/help', async (req, res) => {
   res.json({ 
     endpoints: [
-      '/metrics',
-      '/fee',
-      '/price',
-      '/proposals',
-      '/providers',
-      '/public-providers-count',
-      '/total_bandwidth',
-      '/public_total_bandwidth',
-      '/avg_quality',
-      '/public_avg_quality',
-      '/avg_latency',
-      '/public_avg_latency',
-      '/public_providers',
+      '/metrics', //1
+      '/fee', //2
+      '/price', //3
+      '/proposals', //4
+      '/providers', //5
+      '/public-providers-count', //6
+      '/total_bandwidth', //7
+      '/public_total_bandwidth', //8
+      '/avg_quality', //9
+      '/public_avg_quality', //10
+      '/avg_latency', //11
+      '/public_avg_latency', //12
+      '/public_providers', //13
     ]
   });
 }
