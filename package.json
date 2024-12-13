@@ -6,6 +6,9 @@
   "author": "Adine Vikash",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+  "start": "node filename.js"
+},
   "dependencies": {
     "express": "^4.18.2",
     "node-fetch": "^3.0.0",
