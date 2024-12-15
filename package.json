@@ -7,7 +7,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-  "start": "node filename.js"
+  "start": "node index.js"
 },
   "dependencies": {
     "express": "^4.21.2",
