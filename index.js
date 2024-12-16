@@ -495,8 +495,26 @@ app.get('/public_providers', async (req, res) => { // 13
       res.status(500).json({ error: 'Failed to fetch public providers' });
     }
 });
+app.get('/nodes_per_country', async (req, res) => {
+  try {
+    const data = await fetchAllProposals();
+    let nodesPerCountry = {};
+    data.forEach(item => {
+      const country = item.location.country;
+      if (nodesPerCountry[country]) {
+        nodesPerCountry[country] += 1;
+      } else {
+        nodesPerCountry[country] = 1;
+      }
+    });
+    res.json({ nodesPerCountry });
+  } catch (error) {
+    console.error('Failed to fetch nodes per country:', error);
+    res.status(500).json({ error: 'Failed to fetch nodes per country' });
+  }
+});
 
-//The code has 14 API Endpoints in total
+//The code has 15 API Endpoints in total
 
 app.get ('/help', async (req, res) => { //14
   res.json({ 
@@ -514,6 +532,7 @@ app.get ('/help', async (req, res) => { //14
       '/avg_latency', //11
       '/public_avg_latency', //12
       '/public_providers', //13
+      '/nodes_per_country', //14
     ]
   });
 }
