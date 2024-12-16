@@ -514,7 +514,7 @@ app.get('/nodes_per_country', async (req, res) => { // 14
   }
 });
 
-app.get('/bandwidth_per_country'), async (req, res) => { // 15
+app.get('/bandwidth_per_country', async (req, res) => {
   try {
     const data = await fetchAllProposals();
     let bandwidthPerCountry = {};
@@ -531,7 +531,7 @@ app.get('/bandwidth_per_country'), async (req, res) => { // 15
     console.error('Failed to fetch bandwidth per country:', error);
     res.status(500).json({ error: 'Failed to fetch bandwidth per country' });
   }
-};
+});
 
 //The code has 16 API Endpoints in total
 
