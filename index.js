@@ -514,7 +514,7 @@ app.get('/nodes_per_country', async (req, res) => { // 14
   }
 });
 
-app.get('/nodes_per_country/:countryCode', async (req, res) => {
+app.get('/nodes_per_country/:countryCode', async (req, res) => { //15
   const { countryCode } = req.params;
   try {
     const data = await fetchAllProposals();
@@ -531,7 +531,7 @@ app.get('/nodes_per_country/:countryCode', async (req, res) => {
   }
 });
 
-app.get('/bandwidth_per_country', async (req, res) => {
+app.get('/bandwidth_per_country', async (req, res) => { //16
   try {
     const data = await fetchAllProposals();
     let bandwidthPerCountry = {};
@@ -550,7 +550,24 @@ app.get('/bandwidth_per_country', async (req, res) => {
   }
 });
 
-//The code has 16 API Endpoints in total
+app.get('/bandwidth_per_country/:countryCode', async (req, res) => { //17
+  const { countryCode } = req.params;
+  try {
+    const data = await fetchAllProposals();
+    let bandwidth = 0;
+    data.forEach(item => {
+      if (item.location.country === countryCode) {
+        bandwidth += item.quality.bandwidth || 0;
+      }
+    });
+    res.json({ countryCode, bandwidth });
+  } catch (error) {
+    console.error(`Failed to fetch bandwidth for country ${countryCode}:`, error);
+    res.status(500).json({ error: `Failed to fetch bandwidth for country ${countryCode}` });
+  }
+});
+
+//The code has 18 API Endpoints in total
 
 app.get ('/help', async (req, res) => { //14
   res.json({ 
@@ -570,6 +587,8 @@ app.get ('/help', async (req, res) => { //14
       '/public_providers', //13
       '/nodes_per_country', //14
       '/bandwidth_per_country', //15
+      '/nodes_per_country/:countryCode', //16
+      '/bandwidth_per_country/:countryCode' //17
     ]
   });
 }
