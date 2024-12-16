@@ -514,6 +514,23 @@ app.get('/nodes_per_country', async (req, res) => { // 14
   }
 });
 
+app.get('/nodes_per_country/:countryCode', async (req, res) => {
+  const { countryCode } = req.params;
+  try {
+    const data = await fetchAllProposals();
+    let count = 0;
+    data.forEach(item => {
+      if (item.location.country === countryCode) {
+        count += 1;
+      }
+    });
+    res.json({ countryCode, count });
+  } catch (error) {
+    console.error(`Failed to fetch nodes for country ${countryCode}:`, error);
+    res.status(500).json({ error: `Failed to fetch nodes for country ${countryCode}` });
+  }
+});
+
 app.get('/bandwidth_per_country', async (req, res) => {
   try {
     const data = await fetchAllProposals();
