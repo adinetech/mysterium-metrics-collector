@@ -60,7 +60,7 @@ GET http://localhost/
 ## API Endpoints
 
 ### Base URL
-`https://mysterium-api.adinetech.com/`
+https://mysterium-api.adinetech.com/
 
 ### `GET /help`
 **Description**: Returns a JSON response containing the list of usable API Endpoints.
