@@ -4,6 +4,9 @@ import fetch from 'node-fetch';
 import client from 'prom-client';
 
 const app = express();
+
+app.use(express.static('public'));
+
 const port = 80;
 
 // Available functions - fetchAllProposals, fetchPublicProposals, fetchRegistrationFee, ServicePricing.
@@ -601,6 +604,10 @@ setInterval(async () => {
   }
 }
 , 60000); //60000 - 1 min
+
+app.get('/dashboard', (req, res) => {
+  res.sendFile('dashboard.html', { root: './public' });
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
