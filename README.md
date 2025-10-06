@@ -6,9 +6,11 @@ The **Mysterium Metrics Collector** is an Express.js application designed to fet
 
 ## Table of Contents
 - [Features](#features)
+- [Project Structure](#project-structure)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Configuration](#configuration)
 - [API Endpoints](#api-endpoints)
 - [Metrics](#metrics)
 - [License](#license)
@@ -21,6 +23,42 @@ The **Mysterium Metrics Collector** is an Express.js application designed to fet
 - Obtains registration fees in human-readable format.
 - Gathers service pricing information.
 - Exposes metrics for monitoring Mysterium nodes.
+- Modular architecture with separation of concerns.
+- Prometheus metrics integration.
+- Real-time dashboard with Chart.js visualizations.
+- Country-specific node and bandwidth statistics.
+
+---
+
+## Project Structure
+
+```
+mysterium-metrics-collector/
+├── src/
+│   ├── config/              # Configuration files
+│   │   └── index.js         # App configuration
+│   ├── services/            # External API services
+│   │   └── mysteriumApi.js  # Mysterium API calls
+│   ├── metrics/             # Prometheus metrics
+│   │   └── prometheusMetrics.js
+│   ├── controllers/         # Route controllers
+│   │   ├── metricsController.js
+│   │   └── dataController.js
+│   ├── routes/              # Route definitions
+│   │   └── index.js
+│   ├── middleware/          # Express middleware
+│   │   └── errorHandler.js
+│   ├── utils/               # Helper functions
+│   │   └── calculations.js
+│   └── app.js               # Express app setup
+├── public/                  # Static frontend files
+│   ├── dashboard.html
+│   ├── dashboard.js
+│   └── styles.css
+├── index.js                 # Application entry point
+├── package.json
+└── README.md
+```
 
 ---
 
@@ -41,6 +79,29 @@ The **Mysterium Metrics Collector** is an Express.js application designed to fet
     ```bash
     npm install
     ```
+
+3. (Optional) Create a `.env` file for custom configuration:
+    ```bash
+    cp .env.example .env
+    # Edit .env with your settings
+    ```
+
+---
+
+## Configuration
+
+You can configure the application using environment variables. Create a `.env` file in the root directory:
+
+```env
+PORT=80
+NODE_ENV=production
+REFRESH_INTERVAL=60000
+```
+
+**Configuration Options:**
+- `PORT` - Server port (default: 80)
+- `NODE_ENV` - Environment mode (development/production)
+- `REFRESH_INTERVAL` - Metrics refresh interval in milliseconds (default: 60000)
 
 ---
 
