@@ -34,9 +34,4 @@ router.get('/bandwidth_per_country', asyncHandler(dataController.getBandwidthPer
 router.get('/bandwidth_per_country/:countryCode', asyncHandler(dataController.getBandwidthForCountry));
 router.get('/help', asyncHandler(dataController.getHelp));
 
-// Dashboard
-router.get('/dashboard', (req, res) => {
-  res.sendFile('dashboard.html', { root: path.join(__dirname, '../../public') });
-});
-
 export default router;

@@ -5,9 +5,6 @@ import config from './config/index.js';
 
 const app = express();
 
-// Static files
-app.use(express.static('public'));
-
 // Routes
 app.use('/', routes);
 
