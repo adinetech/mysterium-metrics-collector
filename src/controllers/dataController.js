@@ -8,6 +8,7 @@ import {
   getNodesPerCountry, 
   getBandwidthPerCountry 
 } from '../utils/calculations.js';
+import axios from 'axios';
 
 // Get registration fee
 export async function getFee(req, res) {
@@ -155,6 +156,13 @@ export async function getBandwidthForCountry(req, res) {
   res.json({ countryCode, bandwidth });
 }
 
+export async function getProviderById(req, res) {
+  const { providerId } = req.params;
+  const url = `https://discovery.mysterium.network/api/v3/proposals?provider_id=${providerId}`;
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
 // Help endpoint - list all available endpoints
 export async function getHelp(req, res) {
   res.json({ 
@@ -179,4 +187,73 @@ export async function getHelp(req, res) {
       '/help'
     ]
   });
+}
+
+// Transactor API endpoints
+export async function getChainFee(req, res) {
+  const { chainid } = req.params;
+  const url = `https://transactor.mysterium.network/api/v1/fee/${chainid}`;
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
+export async function getChainRegisterFee(req, res) {
+  const { chainid } = req.params;
+  const url = `https://transactor.mysterium.network/api/v1/fee/${chainid}/register`;
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
+export async function getChainSettleFee(req, res) {
+  const { chainid } = req.params;
+  const url = `https://transactor.mysterium.network/api/v1/fee/${chainid}/settle`;
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
+export async function getIdentityStatus(req, res) {
+  const { id } = req.params;
+  const url = `https://transactor.mysterium.network/api/v1/identity/${id}/status`;
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
+export async function getIdentityEligibility(req, res) {
+  const { address } = req.params;
+  const url = `https://transactor.mysterium.network/api/v1/identity/register/eligibility/${address}`;
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
+export async function getProviderEligibility(req, res) {
+  const url = 'https://transactor.mysterium.network/api/v1/identity/register/provider/eligibility';
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
+export async function getTransactorStatus(req, res) {
+  const url = 'https://transactor.mysterium.network/api/v1/status';
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
+// Hermes3 API endpoints
+export async function getProviderChannelData(req, res) {
+  const { identity } = req.params;
+  const url = `https://hermes3.mysterium.network/api/v1/data/provider/${identity}`;
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
+export async function getConsumerChannelData(req, res) {
+  const { identity } = req.params;
+  const url = `https://hermes3.mysterium.network/api/v1/data/consumer/${identity}`;
+  const response = await axios.get(url);
+  res.json(response.data);
+}
+
+export async function getHermesStatus(req, res) {
+  const url = 'https://hermes3.mysterium.network/api/v1/status';
+  const response = await axios.get(url);
+  res.json(response.data);
 }

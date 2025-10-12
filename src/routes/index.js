@@ -33,5 +33,20 @@ router.get('/nodes_per_country/:countryCode', asyncHandler(dataController.getNod
 router.get('/bandwidth_per_country', asyncHandler(dataController.getBandwidthPerCountryAll));
 router.get('/bandwidth_per_country/:countryCode', asyncHandler(dataController.getBandwidthForCountry));
 router.get('/help', asyncHandler(dataController.getHelp));
+router.get('/provider/:providerId', asyncHandler(dataController.getProviderById));
+
+// Transactor API
+router.get('/chain_fee/:chainid', asyncHandler(dataController.getChainFee));
+router.get('/chain_register_fee/:chainid', asyncHandler(dataController.getChainRegisterFee));
+router.get('/chain_settle_fee/:chainid', asyncHandler(dataController.getChainSettleFee));
+router.get('/identity_status/:id', asyncHandler(dataController.getIdentityStatus));
+router.get('/identity_eligibility/:address', asyncHandler(dataController.getIdentityEligibility));
+router.get('/provider_eligibility', asyncHandler(dataController.getProviderEligibility));
+router.get('/transactor_status', asyncHandler(dataController.getTransactorStatus));
+
+// Hermes3 API
+router.get('/provider_channel/:identity', asyncHandler(dataController.getProviderChannelData));
+router.get('/consumer_channel/:identity', asyncHandler(dataController.getConsumerChannelData));
+router.get('/hermes_status', asyncHandler(dataController.getHermesStatus));
 
 export default router;
