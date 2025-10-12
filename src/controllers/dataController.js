@@ -168,6 +168,7 @@ export async function getHelp(req, res) {
   res.json({ 
     endpoints: [
       '/metrics',
+      '/',
       '/fee',
       '/price',
       '/proposals',
@@ -180,10 +181,20 @@ export async function getHelp(req, res) {
       '/avg_latency',
       '/public_avg_latency',
       '/nodes_per_country',
-      '/bandwidth_per_country',
       '/nodes_per_country/:countryCode',
+      '/bandwidth_per_country',
       '/bandwidth_per_country/:countryCode',
-      '/dashboard',
+      '/provider/:providerId',
+      '/chain_fee/:chainid',
+      '/chain_register_fee/:chainid',
+      '/chain_settle_fee/:chainid',
+      '/identity_status/:id',
+      '/identity_eligibility/:address',
+      '/provider_eligibility',
+      '/transactor_status',
+      '/provider_channel/:identity',
+      '/consumer_channel/:identity',
+      '/hermes_status',
       '/help'
     ]
   });
