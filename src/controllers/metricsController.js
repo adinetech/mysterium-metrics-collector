@@ -3,9 +3,12 @@ import {
   fetchPublicProposals,
   fetchRegistrationFee,
   fetchServicePricing,
+  getCacheAge,
 } from '../services/mysteriumApi.js';
 import { calculateMetrics, parsePricingData } from '../utils/calculations.js';
 import * as metrics from '../metrics/prometheusMetrics.js';
+
+const START_TIME = Date.now();
 
 // GET / — full aggregated snapshot + Prometheus gauge update
 export async function getAggregatedMetrics(req, res) {
@@ -16,34 +19,38 @@ export async function getAggregatedMetrics(req, res) {
     fetchServicePricing(),
   ]);
 
-  const allMetrics = calculateMetrics(data);
-  const pubMetrics = calculateMetrics(pubData);
+  const all = calculateMetrics(data);
+  const pub = calculateMetrics(pubData);
   const p = parsePricingData(price);
 
   const responseData = {
-    // All-node counts & quality
-    total_nodes: allMetrics.totalNodes,
-    avg_quality: allMetrics.avgQuality,
-    avg_latency: allMetrics.avgLatency,
-    avg_uptime: allMetrics.avgUptime,
-    avg_packet_loss: allMetrics.avgPacketLoss,
-    total_bandwidth: allMetrics.totalBandwidth,
-    avg_bandwidth: allMetrics.avgBandwidth,
-    nodes_per_service_type: allMetrics.nodesPerServiceType,
+    // All-node stats
+    total_nodes: all.totalNodes,
+    avg_quality: all.avgQuality,
+    avg_latency: all.avgLatency,
+    latency_p50: all.p50Latency,
+    latency_p95: all.p95Latency,
+    avg_uptime: all.avgUptime,
+    avg_packet_loss: all.avgPacketLoss,
+    total_bandwidth: all.totalBandwidth,
+    avg_bandwidth: all.avgBandwidth,
+    nodes_per_service_type: all.nodesPerServiceType,
 
-    // Public-node metrics
-    public_nodes: pubMetrics.totalNodes,
-    pub_avg_quality: pubMetrics.avgQuality,
-    pub_avg_latency: pubMetrics.avgLatency,
-    pub_avg_uptime: pubMetrics.avgUptime,
-    pub_avg_packet_loss: pubMetrics.avgPacketLoss,
-    pub_total_bandwidth: pubMetrics.totalBandwidth,
-    pub_avg_bandwidth: pubMetrics.avgBandwidth,
+    // Public-node stats
+    public_nodes: pub.totalNodes,
+    pub_avg_quality: pub.avgQuality,
+    pub_avg_latency: pub.avgLatency,
+    pub_latency_p50: pub.p50Latency,
+    pub_latency_p95: pub.p95Latency,
+    pub_avg_uptime: pub.avgUptime,
+    pub_avg_packet_loss: pub.avgPacketLoss,
+    pub_total_bandwidth: pub.totalBandwidth,
+    pub_avg_bandwidth: pub.avgBandwidth,
 
     // Fee
     current_fee: fee,
 
-    // Residential pricing per GiB (MYST) — all 6 service types
+    // Residential pricing (6 service types)
     residential_wireguard_gib: p.resi_wireguard_gib_value,
     residential_scraping_gib: p.resi_scraping_gib_value,
     residential_quic_scraping_gib: p.resi_quic_scraping_gib_value,
@@ -51,7 +58,7 @@ export async function getAggregatedMetrics(req, res) {
     residential_dvpn_gib: p.resi_dvpn_gib_value,
     residential_monitoring_gib: p.resi_monitoring_gib_value,
 
-    // Other pricing per GiB (MYST) — all 6 service types
+    // Other pricing (6 service types)
     other_wireguard_gib: p.other_wireguard_gib_value,
     other_scraping_gib: p.other_scraping_gib_value,
     other_quic_scraping_gib: p.other_quic_scraping_gib_value,
@@ -60,32 +67,39 @@ export async function getAggregatedMetrics(req, res) {
     other_monitoring_gib: p.other_monitoring_gib_value,
 
     // Per-country breakdowns
-    bandwidthPerCountry: allMetrics.bandwidthPerCountry,
-    nodes_per_country: allMetrics.nodesPerCountry,
+    bandwidthPerCountry: all.bandwidthPerCountry,
+    nodes_per_country: all.nodesPerCountry,
+
+    // Cache info
+    cache_age_seconds: getCacheAge('allProposals'),
   };
 
-  // Update Prometheus gauges — all nodes
-  metrics.totalNodesGauge.set(allMetrics.totalNodes);
-  metrics.avgQualityGauge.set(allMetrics.avgQuality);
-  metrics.avgLatencyGauge.set(allMetrics.avgLatency);
-  metrics.avgUptimeGauge.set(allMetrics.avgUptime);
-  metrics.avgPacketLossGauge.set(allMetrics.avgPacketLoss);
-  metrics.totalBandwidthGauge.set(allMetrics.totalBandwidth);
-  metrics.avgBandwidthGauge.set(allMetrics.avgBandwidth);
+  // Update Prometheus — all nodes
+  metrics.totalNodesGauge.set(all.totalNodes);
+  metrics.avgQualityGauge.set(all.avgQuality);
+  metrics.avgLatencyGauge.set(all.avgLatency);
+  metrics.p50LatencyGauge.set(all.p50Latency);
+  metrics.p95LatencyGauge.set(all.p95Latency);
+  metrics.avgUptimeGauge.set(all.avgUptime);
+  metrics.avgPacketLossGauge.set(all.avgPacketLoss);
+  metrics.totalBandwidthGauge.set(all.totalBandwidth);
+  metrics.avgBandwidthGauge.set(all.avgBandwidth);
 
-  // Update Prometheus gauges — public nodes
-  metrics.publicNodesGauge.set(pubMetrics.totalNodes);
-  metrics.avgPublicQualityGauge.set(pubMetrics.avgQuality);
-  metrics.avgPublicLatencyGauge.set(pubMetrics.avgLatency);
-  metrics.avgPublicUptimeGauge.set(pubMetrics.avgUptime);
-  metrics.avgPublicPacketLossGauge.set(pubMetrics.avgPacketLoss);
-  metrics.totalPublicBandwidthGauge.set(pubMetrics.totalBandwidth);
-  metrics.avgPublicBandwidthGauge.set(pubMetrics.avgBandwidth);
+  // Update Prometheus — public nodes
+  metrics.publicNodesGauge.set(pub.totalNodes);
+  metrics.avgPublicQualityGauge.set(pub.avgQuality);
+  metrics.avgPublicLatencyGauge.set(pub.avgLatency);
+  metrics.p50PublicLatencyGauge.set(pub.p50Latency);
+  metrics.p95PublicLatencyGauge.set(pub.p95Latency);
+  metrics.avgPublicUptimeGauge.set(pub.avgUptime);
+  metrics.avgPublicPacketLossGauge.set(pub.avgPacketLoss);
+  metrics.totalPublicBandwidthGauge.set(pub.totalBandwidth);
+  metrics.avgPublicBandwidthGauge.set(pub.avgBandwidth);
 
   // Fee
   metrics.feeGauge.set(fee);
 
-  // Residential pricing gauges
+  // Residential pricing
   metrics.residential_wireguard_gib.set(p.resi_wireguard_gib_value);
   metrics.residential_scraping_gib.set(p.resi_scraping_gib_value);
   metrics.residential_quic_scraping_gib.set(p.resi_quic_scraping_gib_value);
@@ -93,7 +107,7 @@ export async function getAggregatedMetrics(req, res) {
   metrics.residential_dvpn_gib.set(p.resi_dvpn_gib_value);
   metrics.residential_monitoring_gib.set(p.resi_monitoring_gib_value);
 
-  // Other pricing gauges
+  // Other pricing
   metrics.other_wireguard_gib.set(p.other_wireguard_gib_value);
   metrics.other_scraping_gib.set(p.other_scraping_gib_value);
   metrics.other_quic_scraping_gib.set(p.other_quic_scraping_gib_value);
@@ -101,10 +115,10 @@ export async function getAggregatedMetrics(req, res) {
   metrics.other_dvpn_gib.set(p.other_dvpn_gib_value);
   metrics.other_monitoring_gib.set(p.other_monitoring_gib_value);
 
-  // Dynamic country & service-type gauges
-  metrics.updateBandwidthGauges(allMetrics.bandwidthPerCountry);
-  metrics.updateNodesGauges(allMetrics.nodesPerCountry);
-  metrics.updateServiceTypeGauges(allMetrics.nodesPerServiceType);
+  // Dynamic gauges
+  metrics.updateBandwidthGauges(all.bandwidthPerCountry);
+  metrics.updateNodesGauges(all.nodesPerCountry);
+  metrics.updateServiceTypeGauges(all.nodesPerServiceType);
 
   res.json(responseData);
 }

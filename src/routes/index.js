@@ -5,21 +5,26 @@ import * as dataController from '../controllers/dataController.js';
 
 const router = express.Router();
 
-// Core — aggregated snapshot + Prometheus gauge update
+// Core
 router.get('/', asyncHandler(metricsController.getAggregatedMetrics));
-
-// Prometheus scrape endpoint
 router.get('/metrics', asyncHandler(metricsController.getPrometheusMetrics));
 
-// Computed / aggregated data endpoints
+// Data endpoints
 router.get('/price', asyncHandler(dataController.getPricing));
 router.get('/proposals', asyncHandler(dataController.getProposals));
+
+// Stats
+router.get('/stats/top_countries', asyncHandler(dataController.getTopCountriesStats));
+
+// Country endpoints
 router.get('/nodes_per_country', asyncHandler(dataController.getNodesPerCountryAll));
+router.get('/nodes_per_country/:countryCode/services', asyncHandler(dataController.getServicesForCountry));
 router.get('/nodes_per_country/:countryCode', asyncHandler(dataController.getNodesForCountry));
 router.get('/bandwidth_per_country', asyncHandler(dataController.getBandwidthPerCountryAll));
 router.get('/bandwidth_per_country/:countryCode', asyncHandler(dataController.getBandwidthForCountry));
 
-// Help / docs
+// Utility
+router.get('/health', asyncHandler(dataController.getHealth));
 router.get('/help', asyncHandler(dataController.getHelp));
 
 export default router;

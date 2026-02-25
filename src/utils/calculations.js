@@ -1,3 +1,10 @@
+// Compute a percentile value from a sorted array of numbers
+function percentile(sorted, p) {
+  if (!sorted.length) return 0;
+  const idx = Math.ceil((p / 100) * sorted.length) - 1;
+  return sorted[Math.max(0, idx)];
+}
+
 // Calculate total and average metrics from proposals data
 export function calculateMetrics(data) {
   let totalQuality = 0;
@@ -9,6 +16,7 @@ export function calculateMetrics(data) {
   let nodesPerServiceType = {};
   let bandwidthPerCountry = {};
   let nodesWithQuality = 0;
+  const latencies = [];
 
   data.forEach(item => {
     // Service type breakdown
@@ -26,11 +34,13 @@ export function calculateMetrics(data) {
     // Quality-based metrics (only from nodes that report quality)
     if (item.quality) {
       nodesWithQuality++;
+      const lat = item.quality.latency || 0;
       totalQuality += item.quality.quality || 0;
-      totalLatency += Math.min(item.quality.latency || 0, 10000); // cap at 10s — excludes dead-node outliers (e.g. 8.6M ms)
+      totalLatency += Math.min(lat, 10000); // cap at 10s — excludes dead-node outliers
       totalBandwidth += item.quality.bandwidth || 0;
       totalUptime += item.quality.uptime || 0;
       totalPacketLoss += item.quality.packetLoss || 0;
+      latencies.push(lat);
 
       if (country) {
         bandwidthPerCountry[country] = (bandwidthPerCountry[country] || 0) + (item.quality.bandwidth || 0);
@@ -39,25 +49,74 @@ export function calculateMetrics(data) {
   });
 
   const totalNodes = data.length;
-  const n = nodesWithQuality || 1; // avoid divide-by-zero
-  const avgQuality = totalQuality / n;
-  const avgLatency = totalLatency / n;
-  const avgBandwidth = totalBandwidth / n;
-  const avgUptime = totalUptime / n;
-  const avgPacketLoss = totalPacketLoss / n;
+  const n = nodesWithQuality || 1;
+
+  // Sort for percentile calculations (cap outliers here too)
+  const sortedLatencies = latencies.map(l => Math.min(l, 10000)).sort((a, b) => a - b);
 
   return {
     totalNodes,
     totalBandwidth,
-    avgQuality,
-    avgLatency,
-    avgBandwidth,
-    avgUptime,
-    avgPacketLoss,
+    avgQuality: totalQuality / n,
+    avgLatency: totalLatency / n,
+    avgBandwidth: totalBandwidth / n,
+    avgUptime: totalUptime / n,
+    avgPacketLoss: totalPacketLoss / n,
+    p50Latency: percentile(sortedLatencies, 50),
+    p95Latency: percentile(sortedLatencies, 95),
     nodesPerCountry,
     nodesPerServiceType,
     bandwidthPerCountry,
   };
+}
+
+// Top N countries by node count or bandwidth
+export function getTopCountries(nodesPerCountry, bandwidthPerCountry, n = 10) {
+  const byNodes = Object.entries(nodesPerCountry)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, n)
+    .map(([country, count]) => ({ country, count }));
+
+  const byBandwidth = Object.entries(bandwidthPerCountry)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, n)
+    .map(([country, bandwidth]) => ({ country, bandwidth }));
+
+  return { byNodes, byBandwidth };
+}
+
+// Service type breakdown for a single country
+export function getServiceTypesForCountry(data, countryCode) {
+  const services = {};
+  data.forEach(item => {
+    if (item.location?.country === countryCode) {
+      const svc = item.service_type;
+      if (svc) services[svc] = (services[svc] || 0) + 1;
+    }
+  });
+  return services;
+}
+
+// Get nodes count by country (standalone helper used by dataController)
+export function getNodesPerCountry(data) {
+  const nodesPerCountry = {};
+  data.forEach(item => {
+    const country = item.location?.country;
+    if (country) nodesPerCountry[country] = (nodesPerCountry[country] || 0) + 1;
+  });
+  return nodesPerCountry;
+}
+
+// Get bandwidth by country (standalone helper used by dataController)
+export function getBandwidthPerCountry(data) {
+  const bandwidthPerCountry = {};
+  data.forEach(item => {
+    const country = item.location?.country;
+    if (country) {
+      bandwidthPerCountry[country] = (bandwidthPerCountry[country] || 0) + (item.quality?.bandwidth || 0);
+    }
+  });
+  return bandwidthPerCountry;
 }
 
 // Parse ALL 6 service-type prices from https://discovery.mysterium.network/api/v4/prices
@@ -78,7 +137,6 @@ export function parsePricingData(price) {
   };
 
   if (!price?.defaults?.current) return result;
-
   const { residential, other } = price.defaults.current;
 
   if (residential) {
@@ -99,29 +157,4 @@ export function parsePricingData(price) {
   }
 
   return result;
-}
-
-// Get nodes count by country (standalone helper used by dataController)
-export function getNodesPerCountry(data) {
-  const nodesPerCountry = {};
-  data.forEach(item => {
-    const country = item.location?.country;
-    if (country) {
-      nodesPerCountry[country] = (nodesPerCountry[country] || 0) + 1;
-    }
-  });
-  return nodesPerCountry;
-}
-
-// Get bandwidth by country (standalone helper used by dataController)
-export function getBandwidthPerCountry(data) {
-  const bandwidthPerCountry = {};
-  data.forEach(item => {
-    const country = item.location?.country;
-    if (country) {
-      const bw = item.quality?.bandwidth || 0;
-      bandwidthPerCountry[country] = (bandwidthPerCountry[country] || 0) + bw;
-    }
-  });
-  return bandwidthPerCountry;
 }

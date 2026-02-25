@@ -5,66 +5,94 @@ import {
 import {
   getNodesPerCountry,
   getBandwidthPerCountry,
+  getTopCountries,
+  getServiceTypesForCountry,
 } from '../utils/calculations.js';
 
-// GET /price — raw pricing structure from Discovery API /api/v4/prices
+// GET /price
 export async function getPricing(req, res) {
-  const price = await fetchServicePricing();
-  res.json(price);
+  res.json(await fetchServicePricing());
 }
 
-// GET /proposals — full raw proposals list from Discovery API
+// GET /proposals
 export async function getProposals(req, res) {
-  const data = await fetchAllProposals();
-  res.json(data);
+  res.json(await fetchAllProposals());
 }
 
-// GET /nodes_per_country — node count aggregated by country
+// GET /nodes_per_country
 export async function getNodesPerCountryAll(req, res) {
   const data = await fetchAllProposals();
   res.json({ nodesPerCountry: getNodesPerCountry(data) });
 }
 
-// GET /nodes_per_country/:countryCode — node count for a single country
+// GET /nodes_per_country/:countryCode
 export async function getNodesForCountry(req, res) {
-  const { countryCode } = req.params;
+  const cc = req.params.countryCode.toUpperCase();
   const data = await fetchAllProposals();
-  const count = data.filter(item => item.location?.country === countryCode.toUpperCase()).length;
-  res.json({ countryCode: countryCode.toUpperCase(), count });
+  const count = data.filter(item => item.location?.country === cc).length;
+  res.json({ countryCode: cc, count });
 }
 
-// GET /bandwidth_per_country — bandwidth aggregated by country
+// GET /nodes_per_country/:countryCode/services
+export async function getServicesForCountry(req, res) {
+  const cc = req.params.countryCode.toUpperCase();
+  const data = await fetchAllProposals();
+  const services = getServiceTypesForCountry(data, cc);
+  const total = Object.values(services).reduce((s, v) => s + v, 0);
+  res.json({ countryCode: cc, total_nodes: total, services });
+}
+
+// GET /bandwidth_per_country
 export async function getBandwidthPerCountryAll(req, res) {
   const data = await fetchAllProposals();
   res.json({ bandwidthPerCountry: getBandwidthPerCountry(data) });
 }
 
-// GET /bandwidth_per_country/:countryCode — bandwidth for a single country
+// GET /bandwidth_per_country/:countryCode
 export async function getBandwidthForCountry(req, res) {
-  const { countryCode } = req.params;
+  const cc = req.params.countryCode.toUpperCase();
   const data = await fetchAllProposals();
   let bandwidth = 0;
   data.forEach(item => {
-    if (item.location?.country === countryCode.toUpperCase()) {
-      bandwidth += item.quality?.bandwidth || 0;
-    }
+    if (item.location?.country === cc) bandwidth += item.quality?.bandwidth || 0;
   });
-  res.json({ countryCode: countryCode.toUpperCase(), bandwidth });
+  res.json({ countryCode: cc, bandwidth });
 }
 
-// GET /help — list all available endpoints with descriptions
+// GET /stats/top_countries?n=10
+export async function getTopCountriesStats(req, res) {
+  const n = Math.min(parseInt(req.query.n) || 10, 50);
+  const data = await fetchAllProposals();
+  const nodesPerCountry = getNodesPerCountry(data);
+  const bandwidthPerCountry = getBandwidthPerCountry(data);
+  res.json(getTopCountries(nodesPerCountry, bandwidthPerCountry, n));
+}
+
+// GET /health
+export async function getHealth(req, res) {
+  res.json({
+    status: 'ok',
+    uptime_seconds: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString(),
+  });
+}
+
+// GET /help
 export async function getHelp(req, res) {
   res.json({
     base_url: 'https://mysterium-api.adinetech.com',
     endpoints: [
-      { method: 'GET', path: '/', description: 'Full aggregated network snapshot. Also updates all Prometheus gauges.' },
+      { method: 'GET', path: '/', description: 'Full aggregated network snapshot. Updates all Prometheus gauges.' },
       { method: 'GET', path: '/metrics', description: 'Prometheus scrape endpoint.' },
-      { method: 'GET', path: '/price', description: 'Raw service pricing from Discovery API — all 6 service types, residential + other.' },
-      { method: 'GET', path: '/proposals', description: 'Full raw proposals list from Discovery API.' },
+      { method: 'GET', path: '/price', description: 'Raw service pricing from Discovery API — all 6 service types.' },
+      { method: 'GET', path: '/proposals', description: 'Full raw proposals list (~41k entries).' },
+      { method: 'GET', path: '/stats/top_countries?n=10', description: 'Top N countries by node count and bandwidth.' },
       { method: 'GET', path: '/nodes_per_country', description: 'Node count per country (all countries).' },
-      { method: 'GET', path: '/nodes_per_country/:countryCode', description: 'Node count for a specific country (ISO 3166-1 alpha-2, e.g. US, DE).' },
+      { method: 'GET', path: '/nodes_per_country/:cc', description: 'Node count for a specific country (ISO alpha-2, e.g. US).' },
+      { method: 'GET', path: '/nodes_per_country/:cc/services', description: 'Service type breakdown for a specific country.' },
       { method: 'GET', path: '/bandwidth_per_country', description: 'Bandwidth (Mbps) per country (all countries).' },
-      { method: 'GET', path: '/bandwidth_per_country/:countryCode', description: 'Bandwidth (Mbps) for a specific country.' },
+      { method: 'GET', path: '/bandwidth_per_country/:cc', description: 'Bandwidth (Mbps) for a specific country.' },
+      { method: 'GET', path: '/health', description: 'Health check — returns uptime and timestamp.' },
       { method: 'GET', path: '/help', description: 'This endpoint.' },
     ],
   });
