@@ -132,29 +132,36 @@ register.registerMetric(other_dvpn_gib);
 // Collect default metrics
 client.collectDefaultMetrics({ register });
 
-// Helper function to create dynamic country gauges
-export function createDynamicGauges(data, name, help) {
-  Object.keys(data).forEach(key => {
-    const bandwidthGaugeName = `${name}_bandwidth_${key}`;
-    const nodesGaugeName = `${name}_nodes_${key}`;
+// Helper function to update dynamic country bandwidth gauges
+export function updateBandwidthGauges(bandwidthData) {
+  Object.keys(bandwidthData).forEach(country => {
+    const gaugeName = `mysterium_bandwidth_${country}`;
 
-    console.log(`Creating gauges for ${key}: ${bandwidthGaugeName}, ${nodesGaugeName}`);
-
-    if (!bandwidthPerCountryGauges[key] || !nodesPerCountryGauges[key]) {
-      bandwidthPerCountryGauges[key] = new client.Gauge({
-        name: bandwidthGaugeName,
-        help: `${help} bandwidth for country ${key}`,
+    if (!bandwidthPerCountryGauges[country]) {
+      bandwidthPerCountryGauges[country] = new client.Gauge({
+        name: gaugeName,
+        help: `Total bandwidth for country ${country}`,
       });
-      nodesPerCountryGauges[key] = new client.Gauge({
-        name: nodesGaugeName,
-        help: `${help} nodes for country ${key}`,
-      });
-
-      register.registerMetric(bandwidthPerCountryGauges[key]);
-      register.registerMetric(nodesPerCountryGauges[key]);
+      register.registerMetric(bandwidthPerCountryGauges[country]);
     }
 
-    bandwidthPerCountryGauges[key].set(data[key]);
-    nodesPerCountryGauges[key].set(data[key]);
+    bandwidthPerCountryGauges[country].set(bandwidthData[country]);
+  });
+}
+
+// Helper function to update dynamic country node count gauges
+export function updateNodesGauges(nodesData) {
+  Object.keys(nodesData).forEach(country => {
+    const gaugeName = `mysterium_nodes_${country}`;
+
+    if (!nodesPerCountryGauges[country]) {
+      nodesPerCountryGauges[country] = new client.Gauge({
+        name: gaugeName,
+        help: `Total nodes for country ${country}`,
+      });
+      register.registerMetric(nodesPerCountryGauges[country]);
+    }
+
+    nodesPerCountryGauges[country].set(nodesData[country]);
   });
 }

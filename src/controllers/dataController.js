@@ -1,14 +1,15 @@
-import { 
-  fetchAllProposals, 
-  fetchPublicProposals, 
-  fetchRegistrationFee, 
-  fetchServicePricing 
+import fetch from 'node-fetch';
+import {
+  fetchAllProposals,
+  fetchPublicProposals,
+  fetchRegistrationFee,
+  fetchServicePricing,
 } from '../services/mysteriumApi.js';
-import { 
-  getNodesPerCountry, 
-  getBandwidthPerCountry 
+import {
+  getNodesPerCountry,
+  getBandwidthPerCountry,
 } from '../utils/calculations.js';
-import axios from 'axios';
+import config from '../config/index.js';
 
 // Get registration fee
 export async function getFee(req, res) {
@@ -45,9 +46,7 @@ export async function getTotalBandwidth(req, res) {
   const data = await fetchAllProposals();
   let total_bandwidth = 0;
   data.forEach(item => {
-    if (item.quality) {
-      total_bandwidth += item.quality.bandwidth || 0;
-    }
+    total_bandwidth += item.quality?.bandwidth || 0;
   });
   res.json({ total_bandwidth });
 }
@@ -57,9 +56,7 @@ export async function getPublicTotalBandwidth(req, res) {
   const data = await fetchPublicProposals();
   let total_bandwidth = 0;
   data.forEach(item => {
-    if (item.quality) {
-      total_bandwidth += item.quality.bandwidth || 0;
-    }
+    total_bandwidth += item.quality?.bandwidth || 0;
   });
   res.json({ total_bandwidth });
 }
@@ -69,11 +66,9 @@ export async function getAvgQuality(req, res) {
   const data = await fetchAllProposals();
   let total_quality = 0;
   data.forEach(item => {
-    if (item.quality) {
-      total_quality += item.quality.quality || 0;
-    }
+    total_quality += item.quality?.quality || 0;
   });
-  const avg_quality = total_quality / data.length;
+  const avg_quality = data.length > 0 ? total_quality / data.length : 0;
   res.json({ avg_quality });
 }
 
@@ -82,11 +77,9 @@ export async function getPublicAvgQuality(req, res) {
   const data = await fetchPublicProposals();
   let total_quality = 0;
   data.forEach(item => {
-    if (item.quality) {
-      total_quality += item.quality.quality || 0;
-    }
+    total_quality += item.quality?.quality || 0;
   });
-  const avg_quality = total_quality / data.length;
+  const avg_quality = data.length > 0 ? total_quality / data.length : 0;
   res.json({ avg_quality });
 }
 
@@ -95,11 +88,9 @@ export async function getAvgLatency(req, res) {
   const data = await fetchAllProposals();
   let total_latency = 0;
   data.forEach(item => {
-    if (item.quality) {
-      total_latency += item.quality.latency || 0;
-    }
+    total_latency += item.quality?.latency || 0;
   });
-  const avg_latency = total_latency / data.length;
+  const avg_latency = data.length > 0 ? total_latency / data.length : 0;
   res.json({ avg_latency });
 }
 
@@ -108,11 +99,9 @@ export async function getPublicAvgLatency(req, res) {
   const data = await fetchPublicProposals();
   let total_latency = 0;
   data.forEach(item => {
-    if (item.quality) {
-      total_latency += item.quality.latency || 0;
-    }
+    total_latency += item.quality?.latency || 0;
   });
-  const avg_latency = total_latency / data.length;
+  const avg_latency = data.length > 0 ? total_latency / data.length : 0;
   res.json({ avg_latency });
 }
 
@@ -127,12 +116,7 @@ export async function getNodesPerCountryAll(req, res) {
 export async function getNodesForCountry(req, res) {
   const { countryCode } = req.params;
   const data = await fetchAllProposals();
-  let count = 0;
-  data.forEach(item => {
-    if (item.location.country === countryCode) {
-      count += 1;
-    }
-  });
+  const count = data.filter(item => item.location?.country === countryCode).length;
   res.json({ countryCode, count });
 }
 
@@ -149,23 +133,24 @@ export async function getBandwidthForCountry(req, res) {
   const data = await fetchAllProposals();
   let bandwidth = 0;
   data.forEach(item => {
-    if (item.location.country === countryCode) {
-      bandwidth += item.quality.bandwidth || 0;
+    if (item.location?.country === countryCode) {
+      bandwidth += item.quality?.bandwidth || 0;
     }
   });
   res.json({ countryCode, bandwidth });
 }
 
+// Get provider by ID
 export async function getProviderById(req, res) {
   const { providerId } = req.params;
-  const url = `https://discovery.mysterium.network/api/v3/proposals?provider_id=${providerId}`;
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.providerById(providerId));
+  const data = await response.json();
+  res.json(data);
 }
 
 // Help endpoint - list all available endpoints
 export async function getHelp(req, res) {
-  res.json({ 
+  res.json({
     endpoints: [
       '/metrics',
       '/',
@@ -195,76 +180,66 @@ export async function getHelp(req, res) {
       '/provider_channel/:identity',
       '/consumer_channel/:identity',
       '/hermes_status',
-      '/help'
-    ]
+      '/help',
+    ],
   });
 }
 
 // Transactor API endpoints
 export async function getChainFee(req, res) {
   const { chainid } = req.params;
-  const url = `https://transactor.mysterium.network/api/v1/fee/${chainid}`;
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.chainFee(chainid));
+  res.json(await response.json());
 }
 
 export async function getChainRegisterFee(req, res) {
   const { chainid } = req.params;
-  const url = `https://transactor.mysterium.network/api/v1/fee/${chainid}/register`;
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.chainRegisterFee(chainid));
+  res.json(await response.json());
 }
 
 export async function getChainSettleFee(req, res) {
   const { chainid } = req.params;
-  const url = `https://transactor.mysterium.network/api/v1/fee/${chainid}/settle`;
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.chainSettleFee(chainid));
+  res.json(await response.json());
 }
 
 export async function getIdentityStatus(req, res) {
   const { id } = req.params;
-  const url = `https://transactor.mysterium.network/api/v1/identity/${id}/status`;
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.identityStatus(id));
+  res.json(await response.json());
 }
 
 export async function getIdentityEligibility(req, res) {
   const { address } = req.params;
-  const url = `https://transactor.mysterium.network/api/v1/identity/register/eligibility/${address}`;
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.identityEligibility(address));
+  res.json(await response.json());
 }
 
 export async function getProviderEligibility(req, res) {
-  const url = 'https://transactor.mysterium.network/api/v1/identity/register/provider/eligibility';
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.providerEligibility);
+  res.json(await response.json());
 }
 
 export async function getTransactorStatus(req, res) {
-  const url = 'https://transactor.mysterium.network/api/v1/status';
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.transactorStatus);
+  res.json(await response.json());
 }
 
 // Hermes3 API endpoints
 export async function getProviderChannelData(req, res) {
   const { identity } = req.params;
-  const url = `https://hermes3.mysterium.network/api/v1/data/provider/${identity}`;
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.providerChannel(identity));
+  res.json(await response.json());
 }
 
 export async function getConsumerChannelData(req, res) {
   const { identity } = req.params;
-  const url = `https://hermes3.mysterium.network/api/v1/data/consumer/${identity}`;
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.consumerChannel(identity));
+  res.json(await response.json());
 }
 
 export async function getHermesStatus(req, res) {
-  const url = 'https://hermes3.mysterium.network/api/v1/status';
-  const response = await axios.get(url);
-  res.json(response.data);
+  const response = await fetch(config.apis.hermesStatus);
+  res.json(await response.json());
 }

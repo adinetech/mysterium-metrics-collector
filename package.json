@@ -1,16 +1,16 @@
 {
-  "name": "mysterium-grafana",
+  "name": "mysterium-metrics-collector",
   "version": "1.0.0",
-  "description": "lol",
+  "description": "Prometheus metrics exporter for the Mysterium Network — exposes node stats, bandwidth, pricing, and fees.",
   "main": "index.js",
   "author": "Adine Vikash",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "node --watch index.js"
   },
   "dependencies": {
-    "axios": "^1.12.2",
     "express": "^4.21.2",
     "node-fetch": "^3.0.0",
     "prom-client": "^15.1.3"

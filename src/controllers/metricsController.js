@@ -1,32 +1,31 @@
-import { 
-  fetchAllProposals, 
-  fetchPublicProposals, 
-  fetchRegistrationFee, 
-  fetchServicePricing 
+import {
+  fetchAllProposals,
+  fetchPublicProposals,
+  fetchRegistrationFee,
+  fetchServicePricing,
 } from '../services/mysteriumApi.js';
-import { 
-  calculateMetrics, 
-  parsePricingData 
+import {
+  calculateMetrics,
+  parsePricingData,
 } from '../utils/calculations.js';
 import * as metrics from '../metrics/prometheusMetrics.js';
 
 // Main aggregation endpoint
 export async function getAggregatedMetrics(req, res) {
   const [data, pubData, fee, price] = await Promise.all([
-    fetchAllProposals(), 
-    fetchPublicProposals(), 
-    fetchRegistrationFee(), 
-    fetchServicePricing()
+    fetchAllProposals(),
+    fetchPublicProposals(),
+    fetchRegistrationFee(),
+    fetchServicePricing(),
   ]);
 
   // Calculate metrics for all nodes
   const allMetrics = calculateMetrics(data);
-  
+
   // Calculate metrics for public nodes
   const pubMetrics = calculateMetrics(pubData);
 
   // Parse pricing data
-  console.log('Service pricing data:', price);
   const pricingValues = parsePricingData(price);
 
   // Build response object
@@ -77,9 +76,9 @@ export async function getAggregatedMetrics(req, res) {
   metrics.other_data_transfer_gib.set(pricingValues.other_data_transfer_gib_value);
   metrics.other_dvpn_gib.set(pricingValues.other_dvpn_gib_value);
 
-  // Create dynamic country gauges
-  metrics.createDynamicGauges(allMetrics.bandwidthPerCountry, 'mysterium_bandwidth', 'Total bandwidth');
-  metrics.createDynamicGauges(allMetrics.nodesPerCountry, 'mysterium_nodes', 'Total nodes');
+  // Update dynamic country gauges (correctly separated)
+  metrics.updateBandwidthGauges(allMetrics.bandwidthPerCountry);
+  metrics.updateNodesGauges(allMetrics.nodesPerCountry);
 
   res.json(responseData);
 }

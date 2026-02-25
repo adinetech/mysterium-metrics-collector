@@ -12,26 +12,22 @@ export function calculateMetrics(data) {
       totalLatency += item.quality.latency || 0;
       totalBandwidth += item.quality.bandwidth || 0;
 
-      const country = item.location.country;
-      if (bandwidthPerCountry[country]) {
-        bandwidthPerCountry[country] += item.quality.bandwidth || 0;
-      } else {
-        bandwidthPerCountry[country] = item.quality.bandwidth || 0;
+      const country = item.location?.country;
+      if (country) {
+        bandwidthPerCountry[country] = (bandwidthPerCountry[country] || 0) + (item.quality.bandwidth || 0);
       }
     }
 
-    const country = item.location.country;
-    if (nodesPerCountry[country]) {
-      nodesPerCountry[country] += 1;
-    } else {
-      nodesPerCountry[country] = 1;
+    const country = item.location?.country;
+    if (country) {
+      nodesPerCountry[country] = (nodesPerCountry[country] || 0) + 1;
     }
   });
 
   const totalNodes = data.length;
-  const avgQuality = totalQuality / totalNodes;
-  const avgLatency = totalLatency / totalNodes;
-  const avgBandwidth = totalBandwidth / totalNodes;
+  const avgQuality = totalNodes > 0 ? totalQuality / totalNodes : 0;
+  const avgLatency = totalNodes > 0 ? totalLatency / totalNodes : 0;
+  const avgBandwidth = totalNodes > 0 ? totalBandwidth / totalNodes : 0;
 
   return {
     totalNodes,
@@ -42,7 +38,7 @@ export function calculateMetrics(data) {
     avgLatency,
     avgBandwidth,
     nodesPerCountry,
-    bandwidthPerCountry
+    bandwidthPerCountry,
   };
 }
 
@@ -59,7 +55,7 @@ export function parsePricingData(price) {
 
   if (price && price.defaults && price.defaults.current) {
     const { residential, other } = price.defaults.current;
-  
+
     if (residential) {
       resi_wireguard_gib_value = parseFloat(residential.wireguard?.price_per_gib_human_readable) || 0;
       resi_scraping_gib_value = parseFloat(residential.scraping?.price_per_gib_human_readable) || 0;
@@ -82,7 +78,7 @@ export function parsePricingData(price) {
     other_wireguard_gib_value,
     other_scraping_gib_value,
     other_data_transfer_gib_value,
-    other_dvpn_gib_value
+    other_dvpn_gib_value,
   };
 }
 
@@ -90,11 +86,9 @@ export function parsePricingData(price) {
 export function getNodesPerCountry(data) {
   const nodesPerCountry = {};
   data.forEach(item => {
-    const country = item.location.country;
-    if (nodesPerCountry[country]) {
-      nodesPerCountry[country] += 1;
-    } else {
-      nodesPerCountry[country] = 1;
+    const country = item.location?.country;
+    if (country) {
+      nodesPerCountry[country] = (nodesPerCountry[country] || 0) + 1;
     }
   });
   return nodesPerCountry;
@@ -104,11 +98,10 @@ export function getNodesPerCountry(data) {
 export function getBandwidthPerCountry(data) {
   const bandwidthPerCountry = {};
   data.forEach(item => {
-    const country = item.location.country;
-    if (bandwidthPerCountry[country]) {
-      bandwidthPerCountry[country] += item.quality.bandwidth || 0;
-    } else {
-      bandwidthPerCountry[country] = item.quality.bandwidth || 0;
+    const country = item.location?.country;
+    if (country) {
+      const bw = item.quality?.bandwidth || 0;
+      bandwidthPerCountry[country] = (bandwidthPerCountry[country] || 0) + bw;
     }
   });
   return bandwidthPerCountry;
