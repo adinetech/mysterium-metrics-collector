@@ -6,7 +6,7 @@ Pre-built Grafana dashboard for the **Mysterium Metrics Collector**, visualising
 
 ## Requirements
 
-- Grafana **11+** (dashboard uses the `dashboard.grafana.app/v2beta1` schema)
+- Grafana **9+** (`schemaVersion: 42`, classic JSON model)
 - A **Prometheus datasource** configured in Grafana, scraping `/metrics` from this app
 
 ---
@@ -15,27 +15,31 @@ Pre-built Grafana dashboard for the **Mysterium Metrics Collector**, visualising
 
 ```
 grafana/
-└── v2/
-    └── mysterium-network-stats-v2.json   # Import this
+└── mysterium-network-stats.json   # Import this
 ```
 
 ---
 
 ## Import
 
-1. Open Grafana → **Dashboards → New → Import**
-2. Click **Upload dashboard JSON file**
-3. Select `v2/mysterium-network-stats-v2.json`
-4. Choose your **Prometheus datasource** when prompted
-5. Click **Import**
+**Option A — Paste into existing dashboard (recommended if you already have it live):**
+1. Open your dashboard → ⚙️ **Settings → JSON Model**
+2. Paste the contents of `mysterium-network-stats.json`
+3. Click **Save dashboard**
 
-> **Provisioning?** Drop the JSON into your Grafana provisioning dashboards path and point your provider config at it.
+**Option B — Fresh import:**
+1. Grafana → **Dashboards → New → Import**
+2. Upload `mysterium-network-stats.json`
+3. Select your **Prometheus datasource** when prompted
+4. Click **Import**
+
+> Dashboard UID is `adrlhrr`. Grafana will detect a conflict if you already have it — use Option A in that case.
 
 ---
 
 ## Panels
 
-### Network Summary
+### Network Summary (stat cards)
 
 | Panel | Metric | Unit |
 |-------|--------|------|
@@ -49,38 +53,38 @@ grafana/
 | Average Public Bandwidth | `mysterium_avg_public_bandwidth` | Mbps |
 | Current Network Fee | `mysterium_current_fee` | MYST |
 
-### Pricing (MYST / GiB)
+### Pricing row (collapsed by default, MYST / GiB)
 
 | Panel | Metric |
 |-------|--------|
 | Residential VPN | `mysterium_residential_dvpn_gib` |
 | Residential B2B VPN & Data Transfer | `mysterium_residential_data_transfer_gib` |
-| Residential Scraping | `mysterium_residential_scraping_gib` |
 | Residential Wireguard | `mysterium_residential_wireguard_gib` |
+| Residential Scraping | `mysterium_residential_scraping_gib` |
 | Other VPN | `mysterium_other_dvpn_gib` |
 | Other B2B VPN & Data Transfer | `mysterium_other_data_transfer_gib` |
-| Other Scraping | `mysterium_other_scraping_gib` |
 | Other Wireguard | `mysterium_other_wireguard_gib` |
+| Other Scraping | `mysterium_other_scraping_gib` |
+| Top 10 Countries by Bandwidth | `mysterium_bandwidth_<CC>` (timeseries) |
+| Total Bandwidth by Country | `mysterium_bandwidth_<CC>` (timeseries, >100 Gbps) |
 
-### Per-Country (dynamic)
+### Advanced row (timeseries over time)
 
-Dynamic gauges are created at runtime by the collector for each country present in the network:
+All of the Network Summary metrics plotted as time series for trend analysis.
+
+---
+
+## Dynamic Country Metrics
+
+The collector creates per-country gauges at runtime for each country seen in the network:
 
 | Metric pattern | Description |
 |----------------|-------------|
-| `mysterium_bandwidth_<CC>` | Total bandwidth for country `CC` |
-| `mysterium_nodes_<CC>` | Node count for country `CC` |
-
-> Country codes follow [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) (e.g. `US`, `DE`, `SG`).
+| `mysterium_bandwidth_<CC>` | Total bandwidth for country (ISO 3166-1 alpha-2) |
+| `mysterium_nodes_<CC>` | Node count for country |
 
 ---
 
-## Metrics Refresh
+## Refresh Interval
 
-The collector auto-refreshes all metrics every `REFRESH_INTERVAL` milliseconds (default: `60000` / 1 minute). Set `REFRESH_INTERVAL` in your `.env` to tune this. Prometheus scrape interval should be ≤ this value.
-
----
-
-## Datasource UID
-
-The dashboard is pre-configured with datasource name `cf0sumxa65gcge`. If your Prometheus datasource has a different UID, Grafana will prompt you to remap it on import.
+Metrics are refreshed every `REFRESH_INTERVAL` ms (default: 60 000 ms). Set this in `.env`. Prometheus scrape interval should be ≤ this value for accurate panels.
