@@ -3,86 +3,105 @@ export function calculateMetrics(data) {
   let totalQuality = 0;
   let totalLatency = 0;
   let totalBandwidth = 0;
+  let totalUptime = 0;
+  let totalPacketLoss = 0;
   let nodesPerCountry = {};
+  let nodesPerServiceType = {};
   let bandwidthPerCountry = {};
+  let nodesWithQuality = 0;
 
   data.forEach(item => {
-    if (item.quality) {
-      totalQuality += item.quality.quality || 0;
-      totalLatency += item.quality.latency || 0;
-      totalBandwidth += item.quality.bandwidth || 0;
-
-      const country = item.location?.country;
-      if (country) {
-        bandwidthPerCountry[country] = (bandwidthPerCountry[country] || 0) + (item.quality.bandwidth || 0);
-      }
+    // Service type breakdown
+    const serviceType = item.service_type;
+    if (serviceType) {
+      nodesPerServiceType[serviceType] = (nodesPerServiceType[serviceType] || 0) + 1;
     }
 
+    // Country node count
     const country = item.location?.country;
     if (country) {
       nodesPerCountry[country] = (nodesPerCountry[country] || 0) + 1;
     }
+
+    // Quality-based metrics (only from nodes that report quality)
+    if (item.quality) {
+      nodesWithQuality++;
+      totalQuality += item.quality.quality || 0;
+      totalLatency += item.quality.latency || 0;
+      totalBandwidth += item.quality.bandwidth || 0;
+      totalUptime += item.quality.uptime || 0;
+      totalPacketLoss += item.quality.packetLoss || 0;
+
+      if (country) {
+        bandwidthPerCountry[country] = (bandwidthPerCountry[country] || 0) + (item.quality.bandwidth || 0);
+      }
+    }
   });
 
   const totalNodes = data.length;
-  const avgQuality = totalNodes > 0 ? totalQuality / totalNodes : 0;
-  const avgLatency = totalNodes > 0 ? totalLatency / totalNodes : 0;
-  const avgBandwidth = totalNodes > 0 ? totalBandwidth / totalNodes : 0;
+  const n = nodesWithQuality || 1; // avoid divide-by-zero
+  const avgQuality = totalQuality / n;
+  const avgLatency = totalLatency / n;
+  const avgBandwidth = totalBandwidth / n;
+  const avgUptime = totalUptime / n;
+  const avgPacketLoss = totalPacketLoss / n;
 
   return {
     totalNodes,
-    totalQuality,
-    totalLatency,
     totalBandwidth,
     avgQuality,
     avgLatency,
     avgBandwidth,
+    avgUptime,
+    avgPacketLoss,
     nodesPerCountry,
+    nodesPerServiceType,
     bandwidthPerCountry,
   };
 }
 
-// Parse pricing data from API response
+// Parse ALL 6 service-type prices from https://discovery.mysterium.network/api/v4/prices
 export function parsePricingData(price) {
-  let resi_wireguard_gib_value = 0;
-  let resi_scraping_gib_value = 0;
-  let resi_data_transfer_gib_value = 0;
-  let resi_dvpn_gib_value = 0;
-  let other_wireguard_gib_value = 0;
-  let other_scraping_gib_value = 0;
-  let other_data_transfer_gib_value = 0;
-  let other_dvpn_gib_value = 0;
+  const result = {
+    resi_wireguard_gib_value: 0,
+    resi_scraping_gib_value: 0,
+    resi_quic_scraping_gib_value: 0,
+    resi_data_transfer_gib_value: 0,
+    resi_dvpn_gib_value: 0,
+    resi_monitoring_gib_value: 0,
+    other_wireguard_gib_value: 0,
+    other_scraping_gib_value: 0,
+    other_quic_scraping_gib_value: 0,
+    other_data_transfer_gib_value: 0,
+    other_dvpn_gib_value: 0,
+    other_monitoring_gib_value: 0,
+  };
 
-  if (price && price.defaults && price.defaults.current) {
-    const { residential, other } = price.defaults.current;
+  if (!price?.defaults?.current) return result;
 
-    if (residential) {
-      resi_wireguard_gib_value = parseFloat(residential.wireguard?.price_per_gib_human_readable) || 0;
-      resi_scraping_gib_value = parseFloat(residential.scraping?.price_per_gib_human_readable) || 0;
-      resi_data_transfer_gib_value = parseFloat(residential.data_transfer?.price_per_gib_human_readable) || 0;
-      resi_dvpn_gib_value = parseFloat(residential.dvpn?.price_per_gib_human_readable) || 0;
-    }
-    if (other) {
-      other_wireguard_gib_value = parseFloat(other.wireguard?.price_per_gib_human_readable) || 0;
-      other_scraping_gib_value = parseFloat(other.scraping?.price_per_gib_human_readable) || 0;
-      other_data_transfer_gib_value = parseFloat(other.data_transfer?.price_per_gib_human_readable) || 0;
-      other_dvpn_gib_value = parseFloat(other.dvpn?.price_per_gib_human_readable) || 0;
-    }
+  const { residential, other } = price.defaults.current;
+
+  if (residential) {
+    result.resi_wireguard_gib_value = parseFloat(residential.wireguard?.price_per_gib_human_readable) || 0;
+    result.resi_scraping_gib_value = parseFloat(residential.scraping?.price_per_gib_human_readable) || 0;
+    result.resi_quic_scraping_gib_value = parseFloat(residential.quic_scraping?.price_per_gib_human_readable) || 0;
+    result.resi_data_transfer_gib_value = parseFloat(residential.data_transfer?.price_per_gib_human_readable) || 0;
+    result.resi_dvpn_gib_value = parseFloat(residential.dvpn?.price_per_gib_human_readable) || 0;
+    result.resi_monitoring_gib_value = parseFloat(residential.monitoring?.price_per_gib_human_readable) || 0;
+  }
+  if (other) {
+    result.other_wireguard_gib_value = parseFloat(other.wireguard?.price_per_gib_human_readable) || 0;
+    result.other_scraping_gib_value = parseFloat(other.scraping?.price_per_gib_human_readable) || 0;
+    result.other_quic_scraping_gib_value = parseFloat(other.quic_scraping?.price_per_gib_human_readable) || 0;
+    result.other_data_transfer_gib_value = parseFloat(other.data_transfer?.price_per_gib_human_readable) || 0;
+    result.other_dvpn_gib_value = parseFloat(other.dvpn?.price_per_gib_human_readable) || 0;
+    result.other_monitoring_gib_value = parseFloat(other.monitoring?.price_per_gib_human_readable) || 0;
   }
 
-  return {
-    resi_wireguard_gib_value,
-    resi_scraping_gib_value,
-    resi_data_transfer_gib_value,
-    resi_dvpn_gib_value,
-    other_wireguard_gib_value,
-    other_scraping_gib_value,
-    other_data_transfer_gib_value,
-    other_dvpn_gib_value,
-  };
+  return result;
 }
 
-// Get nodes count by country
+// Get nodes count by country (standalone helper used by dataController)
 export function getNodesPerCountry(data) {
   const nodesPerCountry = {};
   data.forEach(item => {
@@ -94,7 +113,7 @@ export function getNodesPerCountry(data) {
   return nodesPerCountry;
 }
 
-// Get bandwidth by country
+// Get bandwidth by country (standalone helper used by dataController)
 export function getBandwidthPerCountry(data) {
   const bandwidthPerCountry = {};
   data.forEach(item => {
