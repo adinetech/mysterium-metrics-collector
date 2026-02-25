@@ -1,23 +1,10 @@
 {
     "annotations": {
-        "list": [
-            {
-                "builtIn": 1,
-                "datasource": {
-                    "type": "grafana",
-                    "uid": "-- Grafana --"
-                },
-                "enable": true,
-                "hide": true,
-                "iconColor": "rgba(0, 211, 255, 1)",
-                "name": "Annotations & Alerts",
-                "type": "dashboard"
-            }
-        ]
+        "list": []
     },
     "editable": true,
     "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
+    "graphTooltip": 1,
     "id": 2,
     "links": [],
     "panels": [
@@ -39,22 +26,20 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Total number of active Mysterium Network nodes.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "fixedColor": "blue",
+                        "mode": "fixed"
                     },
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "blue",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     }
@@ -69,9 +54,9 @@
             },
             "id": 1,
             "options": {
-                "colorMode": "value",
+                "colorMode": "background",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -100,7 +85,7 @@
                 }
             ],
             "title": "Total Nodes",
-            "transparent": true,
+            "transparent": false,
             "type": "stat"
         },
         {
@@ -108,22 +93,20 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Total number of publicly accessible Mysterium nodes.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "fixedColor": "purple",
+                        "mode": "fixed"
                     },
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "purple",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     }
@@ -138,9 +121,9 @@
             },
             "id": 2,
             "options": {
-                "colorMode": "value",
+                "colorMode": "background",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -169,7 +152,7 @@
                 }
             ],
             "title": "Public Nodes",
-            "transparent": true,
+            "transparent": false,
             "type": "stat"
         },
         {
@@ -177,22 +160,32 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Average quality score across all nodes (0–1 scale). Higher is better.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
                         "mode": "thresholds"
                     },
+                    "decimals": 3,
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "red",
                                 "value": 0
                             },
                             {
-                                "color": "red",
-                                "value": 80
+                                "color": "orange",
+                                "value": 0.4
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 0.65
+                            },
+                            {
+                                "color": "green",
+                                "value": 0.8
                             }
                         ]
                     }
@@ -207,9 +200,9 @@
             },
             "id": 3,
             "options": {
-                "colorMode": "value",
+                "colorMode": "background",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -238,7 +231,7 @@
                 }
             ],
             "title": "Average Quality",
-            "transparent": true,
+            "transparent": false,
             "type": "stat"
         },
         {
@@ -246,6 +239,7 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Average latency across all nodes in milliseconds. Lower is better.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
@@ -260,11 +254,20 @@
                                 "value": 0
                             },
                             {
+                                "color": "yellow",
+                                "value": 50
+                            },
+                            {
+                                "color": "orange",
+                                "value": 150
+                            },
+                            {
                                 "color": "red",
-                                "value": 80
+                                "value": 300
                             }
                         ]
-                    }
+                    },
+                    "unit": "ms"
                 },
                 "overrides": []
             },
@@ -276,9 +279,9 @@
             },
             "id": 4,
             "options": {
-                "colorMode": "value",
+                "colorMode": "background",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -307,7 +310,7 @@
                 }
             ],
             "title": "Average Latency",
-            "transparent": true,
+            "transparent": false,
             "type": "stat"
         },
         {
@@ -315,10 +318,12 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Total aggregated bandwidth across all nodes.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "fixedColor": "dark-green",
+                        "mode": "fixed"
                     },
                     "fieldMinMax": false,
                     "mappings": [],
@@ -326,12 +331,8 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "dark-green",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     },
@@ -347,9 +348,9 @@
             },
             "id": 5,
             "options": {
-                "colorMode": "value",
+                "colorMode": "background",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -378,7 +379,7 @@
                 }
             ],
             "title": "Total Bandwidth",
-            "transparent": true,
+            "transparent": false,
             "type": "stat"
         },
         {
@@ -386,10 +387,12 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Total aggregated bandwidth of public nodes only.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "fixedColor": "semi-dark-green",
+                        "mode": "fixed"
                     },
                     "fieldMinMax": false,
                     "mappings": [],
@@ -397,12 +400,8 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "semi-dark-green",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     },
@@ -418,9 +417,9 @@
             },
             "id": 16,
             "options": {
-                "colorMode": "value",
+                "colorMode": "background",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -449,7 +448,7 @@
                 }
             ],
             "title": "Total Public Bandwidth",
-            "transparent": true,
+            "transparent": false,
             "type": "stat"
         },
         {
@@ -457,10 +456,12 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Average bandwidth per node across the entire network.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "fixedColor": "green",
+                        "mode": "fixed"
                     },
                     "fieldMinMax": false,
                     "mappings": [],
@@ -470,10 +471,6 @@
                             {
                                 "color": "green",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     },
@@ -489,9 +486,9 @@
             },
             "id": 6,
             "options": {
-                "colorMode": "value",
+                "colorMode": "background",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -520,7 +517,7 @@
                 }
             ],
             "title": "Average Bandwidth",
-            "transparent": true,
+            "transparent": false,
             "type": "stat"
         },
         {
@@ -528,10 +525,12 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Average bandwidth per public node.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "fixedColor": "semi-dark-green",
+                        "mode": "fixed"
                     },
                     "fieldMinMax": false,
                     "mappings": [],
@@ -539,12 +538,8 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "semi-dark-green",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     },
@@ -560,9 +555,9 @@
             },
             "id": 17,
             "options": {
-                "colorMode": "value",
+                "colorMode": "background",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -591,7 +586,7 @@
                 }
             ],
             "title": "Average Public Bandwidth",
-            "transparent": true,
+            "transparent": false,
             "type": "stat"
         },
         {
@@ -599,10 +594,12 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Current Mysterium Network registration and settlement fee in MYST.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "fixedColor": "orange",
+                        "mode": "fixed"
                     },
                     "fieldMinMax": false,
                     "mappings": [],
@@ -610,16 +607,13 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "orange",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     },
-                    "unit": "MYST"
+                    "unit": "MYST",
+                    "decimals": 4
                 },
                 "overrides": []
             },
@@ -631,9 +625,9 @@
             },
             "id": 9,
             "options": {
-                "colorMode": "value",
+                "colorMode": "background",
                 "graphMode": "area",
-                "justifyMode": "auto",
+                "justifyMode": "center",
                 "orientation": "auto",
                 "percentChangeColorMode": "standard",
                 "reduceOptions": {
@@ -662,7 +656,7 @@
                 }
             ],
             "title": "Current Network Fee",
-            "transparent": true,
+            "transparent": false,
             "type": "stat"
         },
         {
@@ -680,10 +674,12 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Residential dVPN price per GiB in MYST.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
-                                "mode": "thresholds"
+                                "fixedColor": "purple",
+                                "mode": "fixed"
                             },
                             "fieldMinMax": false,
                             "mappings": [],
@@ -691,16 +687,13 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
+                                        "color": "purple",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             },
-                            "unit": "MYST / GiB"
+                            "unit": "MYST / GiB",
+                            "decimals": 4
                         },
                         "overrides": []
                     },
@@ -712,9 +705,9 @@
                     },
                     "id": 10,
                     "options": {
-                        "colorMode": "value",
+                        "colorMode": "background",
                         "graphMode": "area",
-                        "justifyMode": "auto",
+                        "justifyMode": "center",
                         "orientation": "auto",
                         "percentChangeColorMode": "standard",
                         "reduceOptions": {
@@ -743,7 +736,7 @@
                         }
                     ],
                     "title": "Residential VPN Price",
-                    "transparent": true,
+                    "transparent": false,
                     "type": "stat"
                 },
                 {
@@ -751,10 +744,12 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Residential B2B VPN & data transfer price per GiB in MYST.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
-                                "mode": "thresholds"
+                                "fixedColor": "semi-dark-purple",
+                                "mode": "fixed"
                             },
                             "fieldMinMax": false,
                             "mappings": [],
@@ -762,16 +757,13 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
+                                        "color": "semi-dark-purple",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             },
-                            "unit": "MYST / GiB"
+                            "unit": "MYST / GiB",
+                            "decimals": 4
                         },
                         "overrides": []
                     },
@@ -783,9 +775,9 @@
                     },
                     "id": 11,
                     "options": {
-                        "colorMode": "value",
+                        "colorMode": "background",
                         "graphMode": "area",
-                        "justifyMode": "auto",
+                        "justifyMode": "center",
                         "orientation": "auto",
                         "percentChangeColorMode": "standard",
                         "reduceOptions": {
@@ -813,8 +805,8 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "Residential B2B VPN & Data Transfer Price",
-                    "transparent": true,
+                    "title": "Residential B2B VPN & Data Transfer",
+                    "transparent": false,
                     "type": "stat"
                 },
                 {
@@ -822,10 +814,12 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Residential Wireguard price per GiB in MYST.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
-                                "mode": "thresholds"
+                                "fixedColor": "blue",
+                                "mode": "fixed"
                             },
                             "fieldMinMax": false,
                             "mappings": [],
@@ -833,16 +827,13 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
+                                        "color": "blue",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             },
-                            "unit": "MYST / GiB"
+                            "unit": "MYST / GiB",
+                            "decimals": 4
                         },
                         "overrides": []
                     },
@@ -854,9 +845,9 @@
                     },
                     "id": 13,
                     "options": {
-                        "colorMode": "value",
+                        "colorMode": "background",
                         "graphMode": "area",
-                        "justifyMode": "auto",
+                        "justifyMode": "center",
                         "orientation": "auto",
                         "percentChangeColorMode": "standard",
                         "reduceOptions": {
@@ -885,7 +876,7 @@
                         }
                     ],
                     "title": "Residential Wireguard Price",
-                    "transparent": true,
+                    "transparent": false,
                     "type": "stat"
                 },
                 {
@@ -893,10 +884,12 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Residential B2B data scraping price per GiB in MYST.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
-                                "mode": "thresholds"
+                                "fixedColor": "semi-dark-blue",
+                                "mode": "fixed"
                             },
                             "fieldMinMax": false,
                             "mappings": [],
@@ -904,16 +897,13 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
+                                        "color": "semi-dark-blue",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             },
-                            "unit": "MYST / GiB"
+                            "unit": "MYST / GiB",
+                            "decimals": 4
                         },
                         "overrides": []
                     },
@@ -925,9 +915,9 @@
                     },
                     "id": 12,
                     "options": {
-                        "colorMode": "value",
+                        "colorMode": "background",
                         "graphMode": "area",
-                        "justifyMode": "auto",
+                        "justifyMode": "center",
                         "orientation": "auto",
                         "percentChangeColorMode": "standard",
                         "reduceOptions": {
@@ -955,8 +945,8 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "Residential B2B Data Scraping Price",
-                    "transparent": true,
+                    "title": "Residential B2B Data Scraping",
+                    "transparent": false,
                     "type": "stat"
                 },
                 {
@@ -964,10 +954,12 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Other (non-residential) dVPN price per GiB in MYST.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
-                                "mode": "thresholds"
+                                "fixedColor": "orange",
+                                "mode": "fixed"
                             },
                             "fieldMinMax": false,
                             "mappings": [],
@@ -975,16 +967,13 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
+                                        "color": "orange",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             },
-                            "unit": "MYST / GiB"
+                            "unit": "MYST / GiB",
+                            "decimals": 4
                         },
                         "overrides": []
                     },
@@ -996,9 +985,9 @@
                     },
                     "id": 18,
                     "options": {
-                        "colorMode": "value",
+                        "colorMode": "background",
                         "graphMode": "area",
-                        "justifyMode": "auto",
+                        "justifyMode": "center",
                         "orientation": "auto",
                         "percentChangeColorMode": "standard",
                         "reduceOptions": {
@@ -1027,7 +1016,7 @@
                         }
                     ],
                     "title": "Other VPN Price",
-                    "transparent": true,
+                    "transparent": false,
                     "type": "stat"
                 },
                 {
@@ -1035,10 +1024,12 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Other (non-residential) B2B VPN & data transfer price per GiB in MYST.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
-                                "mode": "thresholds"
+                                "fixedColor": "semi-dark-orange",
+                                "mode": "fixed"
                             },
                             "fieldMinMax": false,
                             "mappings": [],
@@ -1046,16 +1037,13 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
+                                        "color": "semi-dark-orange",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             },
-                            "unit": "MYST / GiB"
+                            "unit": "MYST / GiB",
+                            "decimals": 4
                         },
                         "overrides": []
                     },
@@ -1067,9 +1055,9 @@
                     },
                     "id": 19,
                     "options": {
-                        "colorMode": "value",
+                        "colorMode": "background",
                         "graphMode": "area",
-                        "justifyMode": "auto",
+                        "justifyMode": "center",
                         "orientation": "auto",
                         "percentChangeColorMode": "standard",
                         "reduceOptions": {
@@ -1097,8 +1085,8 @@
                             "refId": "A"
                         }
                     ],
-                    "title": "Other B2B VPN & Data Transfer Price",
-                    "transparent": true,
+                    "title": "Other B2B VPN & Data Transfer",
+                    "transparent": false,
                     "type": "stat"
                 },
                 {
@@ -1106,10 +1094,12 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Other (non-residential) Wireguard price per GiB in MYST.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
-                                "mode": "thresholds"
+                                "fixedColor": "dark-orange",
+                                "mode": "fixed"
                             },
                             "fieldMinMax": false,
                             "mappings": [],
@@ -1117,16 +1107,13 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
+                                        "color": "dark-orange",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             },
-                            "unit": "MYST / GiB"
+                            "unit": "MYST / GiB",
+                            "decimals": 4
                         },
                         "overrides": []
                     },
@@ -1138,9 +1125,9 @@
                     },
                     "id": 20,
                     "options": {
-                        "colorMode": "value",
+                        "colorMode": "background",
                         "graphMode": "area",
-                        "justifyMode": "auto",
+                        "justifyMode": "center",
                         "orientation": "auto",
                         "percentChangeColorMode": "standard",
                         "reduceOptions": {
@@ -1169,7 +1156,7 @@
                         }
                     ],
                     "title": "Other Wireguard Price",
-                    "transparent": true,
+                    "transparent": false,
                     "type": "stat"
                 },
                 {
@@ -1177,10 +1164,12 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Other (non-residential) B2B data scraping price per GiB in MYST.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
-                                "mode": "thresholds"
+                                "fixedColor": "yellow",
+                                "mode": "fixed"
                             },
                             "fieldMinMax": false,
                             "mappings": [],
@@ -1188,16 +1177,13 @@
                                 "mode": "absolute",
                                 "steps": [
                                     {
-                                        "color": "green",
+                                        "color": "yellow",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             },
-                            "unit": "MYST / GiB"
+                            "unit": "MYST / GiB",
+                            "decimals": 4
                         },
                         "overrides": []
                     },
@@ -1209,9 +1195,9 @@
                     },
                     "id": 21,
                     "options": {
-                        "colorMode": "value",
+                        "colorMode": "background",
                         "graphMode": "area",
-                        "justifyMode": "auto",
+                        "justifyMode": "center",
                         "orientation": "auto",
                         "percentChangeColorMode": "standard",
                         "reduceOptions": {
@@ -1240,7 +1226,7 @@
                         }
                     ],
                     "title": "Other B2B Data Scraping Price",
-                    "transparent": true,
+                    "transparent": false,
                     "type": "stat"
                 },
                 {
@@ -1248,6 +1234,7 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Top 10 countries ranked by total network bandwidth.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -1262,23 +1249,23 @@
                                 "barAlignment": 0,
                                 "barWidthFactor": 0.6,
                                 "drawStyle": "line",
-                                "fillOpacity": 0,
-                                "gradientMode": "none",
+                                "fillOpacity": 8,
+                                "gradientMode": "opacity",
                                 "hideFrom": {
                                     "legend": false,
                                     "tooltip": false,
                                     "viz": false
                                 },
                                 "insertNulls": false,
-                                "lineInterpolation": "linear",
-                                "lineWidth": 1,
+                                "lineInterpolation": "smooth",
+                                "lineWidth": 2,
                                 "pointSize": 5,
                                 "scaleDistribution": {
                                     "type": "linear"
                                 },
-                                "showPoints": "auto",
+                                "showPoints": "never",
                                 "showValues": false,
-                                "spanNulls": false,
+                                "spanNulls": true,
                                 "stacking": {
                                     "group": "A",
                                     "mode": "none"
@@ -1294,10 +1281,6 @@
                                     {
                                         "color": "green",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             }
@@ -1313,15 +1296,18 @@
                     "id": 22,
                     "options": {
                         "legend": {
-                            "calcs": [],
-                            "displayMode": "list",
-                            "placement": "bottom",
+                            "calcs": [
+                                "lastNotNull",
+                                "max"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
                             "showLegend": true
                         },
                         "tooltip": {
                             "hideZeros": false,
-                            "mode": "single",
-                            "sort": "none"
+                            "mode": "multi",
+                            "sort": "desc"
                         }
                     },
                     "pluginVersion": "12.2.0",
@@ -1329,13 +1315,13 @@
                         {
                             "editorMode": "code",
                             "expr": "topk(10,\n  sum by(country) (\n    label_replace({__name__=~\"mysterium_bandwidth_.*\"}, \"country\", \"$1\", \"__name__\", \"mysterium_bandwidth_(.*)\")\n  )\n)",
-                            "legendFormat": "__auto",
+                            "legendFormat": "{{country}}",
                             "range": true,
                             "refId": "A"
                         }
                     ],
                     "title": "Top 10 Countries by Total Bandwidth",
-                    "transparent": true,
+                    "transparent": false,
                     "type": "timeseries"
                 },
                 {
@@ -1343,6 +1329,7 @@
                         "type": "prometheus",
                         "uid": "cf0sumxa65gcge"
                     },
+                    "description": "Bandwidth breakdown for all countries with >100 Gbps.",
                     "fieldConfig": {
                         "defaults": {
                             "color": {
@@ -1357,23 +1344,23 @@
                                 "barAlignment": 0,
                                 "barWidthFactor": 0.6,
                                 "drawStyle": "line",
-                                "fillOpacity": 0,
-                                "gradientMode": "none",
+                                "fillOpacity": 8,
+                                "gradientMode": "opacity",
                                 "hideFrom": {
                                     "legend": false,
                                     "tooltip": false,
                                     "viz": false
                                 },
                                 "insertNulls": false,
-                                "lineInterpolation": "linear",
-                                "lineWidth": 1,
+                                "lineInterpolation": "smooth",
+                                "lineWidth": 2,
                                 "pointSize": 5,
                                 "scaleDistribution": {
                                     "type": "linear"
                                 },
-                                "showPoints": "auto",
+                                "showPoints": "never",
                                 "showValues": false,
-                                "spanNulls": false,
+                                "spanNulls": true,
                                 "stacking": {
                                     "group": "A",
                                     "mode": "none"
@@ -1389,10 +1376,6 @@
                                     {
                                         "color": "green",
                                         "value": 0
-                                    },
-                                    {
-                                        "color": "red",
-                                        "value": 80
                                     }
                                 ]
                             }
@@ -1408,15 +1391,18 @@
                     "id": 23,
                     "options": {
                         "legend": {
-                            "calcs": [],
-                            "displayMode": "list",
-                            "placement": "bottom",
+                            "calcs": [
+                                "lastNotNull",
+                                "max"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
                             "showLegend": true
                         },
                         "tooltip": {
                             "hideZeros": false,
-                            "mode": "single",
-                            "sort": "none"
+                            "mode": "multi",
+                            "sort": "desc"
                         }
                     },
                     "pluginVersion": "12.2.0",
@@ -1424,13 +1410,13 @@
                         {
                             "editorMode": "code",
                             "expr": "sum by(country) (\n  label_replace({__name__=~\"mysterium_bandwidth_.*\"}, \"country\", \"$1\", \"__name__\", \"mysterium_bandwidth_(.*)\")\n) > 100",
-                            "legendFormat": "__auto",
+                            "legendFormat": "{{country}}",
                             "range": true,
                             "refId": "A"
                         }
                     ],
-                    "title": "Total Bandwidth by Country",
-                    "transparent": true,
+                    "title": "Total Bandwidth by Country (>100 Gbps)",
+                    "transparent": false,
                     "type": "timeseries"
                 }
             ],
@@ -1447,7 +1433,7 @@
             },
             "id": 24,
             "panels": [],
-            "title": "Advanced",
+            "title": "Advanced — Trends Over Time",
             "type": "row"
         },
         {
@@ -1455,37 +1441,39 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Total node count over time.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "palette-classic"
+                        "fixedColor": "blue",
+                        "mode": "fixed"
                     },
                     "custom": {
                         "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
-                        "axisLabel": "",
+                        "axisLabel": "Nodes",
                         "axisPlacement": "auto",
                         "barAlignment": 0,
                         "barWidthFactor": 0.6,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
+                        "fillOpacity": 10,
+                        "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
                             "tooltip": false,
                             "viz": false
                         },
                         "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
                         "pointSize": 5,
                         "scaleDistribution": {
                             "type": "linear"
                         },
-                        "showPoints": "auto",
+                        "showPoints": "never",
                         "showValues": false,
-                        "spanNulls": false,
+                        "spanNulls": true,
                         "stacking": {
                             "group": "A",
                             "mode": "none"
@@ -1499,12 +1487,8 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "blue",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     }
@@ -1512,18 +1496,22 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
-                "w": 24,
+                "h": 9,
+                "w": 12,
                 "x": 0,
                 "y": 11
             },
             "id": 25,
             "options": {
                 "legend": {
-                    "calcs": [],
+                    "calcs": [
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
                     "displayMode": "list",
                     "placement": "bottom",
-                    "showLegend": false
+                    "showLegend": true
                 },
                 "tooltip": {
                     "hideZeros": false,
@@ -1540,13 +1528,13 @@
                     },
                     "editorMode": "builder",
                     "expr": "mysterium_total_nodes",
-                    "legendFormat": "__auto",
+                    "legendFormat": "Total Nodes",
                     "range": true,
                     "refId": "A"
                 }
             ],
             "title": "Total Nodes",
-            "transparent": true,
+            "transparent": false,
             "type": "timeseries"
         },
         {
@@ -1554,37 +1542,39 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Public node count over time.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "palette-classic"
+                        "fixedColor": "purple",
+                        "mode": "fixed"
                     },
                     "custom": {
                         "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
-                        "axisLabel": "",
+                        "axisLabel": "Nodes",
                         "axisPlacement": "auto",
                         "barAlignment": 0,
                         "barWidthFactor": 0.6,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
+                        "fillOpacity": 10,
+                        "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
                             "tooltip": false,
                             "viz": false
                         },
                         "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
                         "pointSize": 5,
                         "scaleDistribution": {
                             "type": "linear"
                         },
-                        "showPoints": "auto",
+                        "showPoints": "never",
                         "showValues": false,
-                        "spanNulls": false,
+                        "spanNulls": true,
                         "stacking": {
                             "group": "A",
                             "mode": "none"
@@ -1598,12 +1588,8 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "purple",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     }
@@ -1611,18 +1597,22 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
-                "w": 24,
-                "x": 0,
-                "y": 18
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 11
             },
             "id": 26,
             "options": {
                 "legend": {
-                    "calcs": [],
+                    "calcs": [
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
                     "displayMode": "list",
                     "placement": "bottom",
-                    "showLegend": false
+                    "showLegend": true
                 },
                 "tooltip": {
                     "hideZeros": false,
@@ -1639,13 +1629,13 @@
                     },
                     "editorMode": "builder",
                     "expr": "mysterium_public_nodes",
-                    "legendFormat": "__auto",
+                    "legendFormat": "Public Nodes",
                     "range": true,
                     "refId": "A"
                 }
             ],
             "title": "Public Nodes",
-            "transparent": true,
+            "transparent": false,
             "type": "timeseries"
         },
         {
@@ -1653,10 +1643,12 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Total bandwidth (all nodes) over time.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "palette-classic"
+                        "fixedColor": "dark-green",
+                        "mode": "fixed"
                     },
                     "custom": {
                         "axisBorderShow": false,
@@ -1667,23 +1659,23 @@
                         "barAlignment": 0,
                         "barWidthFactor": 0.6,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
+                        "fillOpacity": 10,
+                        "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
                             "tooltip": false,
                             "viz": false
                         },
                         "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
                         "pointSize": 5,
                         "scaleDistribution": {
                             "type": "linear"
                         },
-                        "showPoints": "auto",
+                        "showPoints": "never",
                         "showValues": false,
-                        "spanNulls": false,
+                        "spanNulls": true,
                         "stacking": {
                             "group": "A",
                             "mode": "none"
@@ -1698,12 +1690,8 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "dark-green",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     },
@@ -1712,319 +1700,22 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
-                "w": 24,
+                "h": 9,
+                "w": 12,
                 "x": 0,
-                "y": 25
-            },
-            "id": 30,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": false
-                },
-                "tooltip": {
-                    "hideZeros": false,
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "pluginVersion": "12.2.0",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "prometheus",
-                        "uid": "cf0sumxa65gcge"
-                    },
-                    "editorMode": "code",
-                    "expr": "mysterium_total_public_bandwidth / 1e6",
-                    "legendFormat": "__auto",
-                    "range": true,
-                    "refId": "A"
-                }
-            ],
-            "title": "Total Public Bandwidth",
-            "transparent": true,
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "cf0sumxa65gcge"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "barWidthFactor": 0.6,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "showValues": false,
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "fieldMinMax": false,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "Mbps"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 7,
-                "w": 24,
-                "x": 0,
-                "y": 32
-            },
-            "id": 32,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": false
-                },
-                "tooltip": {
-                    "hideZeros": false,
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "pluginVersion": "12.2.0",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "prometheus",
-                        "uid": "cf0sumxa65gcge"
-                    },
-                    "editorMode": "builder",
-                    "expr": "mysterium_avg_public_bandwidth",
-                    "legendFormat": "__auto",
-                    "range": true,
-                    "refId": "A"
-                }
-            ],
-            "title": "Average Public Bandwidth",
-            "transparent": true,
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "cf0sumxa65gcge"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "barWidthFactor": 0.6,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "showValues": false,
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 7,
-                "w": 24,
-                "x": 0,
-                "y": 39
-            },
-            "id": 27,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": false
-                },
-                "tooltip": {
-                    "hideZeros": false,
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "pluginVersion": "12.2.0",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "prometheus",
-                        "uid": "cf0sumxa65gcge"
-                    },
-                    "editorMode": "builder",
-                    "expr": "mysterium_avg_quality",
-                    "legendFormat": "__auto",
-                    "range": true,
-                    "refId": "A"
-                }
-            ],
-            "title": "Average Quality",
-            "transparent": true,
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "prometheus",
-                "uid": "cf0sumxa65gcge"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisBorderShow": false,
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "barWidthFactor": 0.6,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "showValues": false,
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "fieldMinMax": false,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "Tbps"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 7,
-                "w": 24,
-                "x": 0,
-                "y": 46
+                "y": 20
             },
             "id": 29,
             "options": {
                 "legend": {
-                    "calcs": [],
+                    "calcs": [
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
                     "displayMode": "list",
                     "placement": "bottom",
-                    "showLegend": false
+                    "showLegend": true
                 },
                 "tooltip": {
                     "hideZeros": false,
@@ -2041,13 +1732,13 @@
                     },
                     "editorMode": "code",
                     "expr": "mysterium_total_bandwidth / 1e6",
-                    "legendFormat": "__auto",
+                    "legendFormat": "Total Bandwidth",
                     "range": true,
                     "refId": "A"
                 }
             ],
             "title": "Total Bandwidth",
-            "transparent": true,
+            "transparent": false,
             "type": "timeseries"
         },
         {
@@ -2055,10 +1746,12 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Total public node bandwidth over time.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "palette-classic"
+                        "fixedColor": "semi-dark-green",
+                        "mode": "fixed"
                     },
                     "custom": {
                         "axisBorderShow": false,
@@ -2069,23 +1762,126 @@
                         "barAlignment": 0,
                         "barWidthFactor": 0.6,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
+                        "fillOpacity": 10,
+                        "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
                             "tooltip": false,
                             "viz": false
                         },
                         "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
                         "pointSize": 5,
                         "scaleDistribution": {
                             "type": "linear"
                         },
-                        "showPoints": "auto",
+                        "showPoints": "never",
                         "showValues": false,
-                        "spanNulls": false,
+                        "spanNulls": true,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "fieldMinMax": false,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "semi-dark-green",
+                                "value": 0
+                            }
+                        ]
+                    },
+                    "unit": "Tbps"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 20
+            },
+            "id": 30,
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "pluginVersion": "12.2.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "cf0sumxa65gcge"
+                    },
+                    "editorMode": "code",
+                    "expr": "mysterium_total_public_bandwidth / 1e6",
+                    "legendFormat": "Total Public Bandwidth",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Total Public Bandwidth",
+            "transparent": false,
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+            },
+            "description": "Average per-node bandwidth over time.",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "green",
+                        "mode": "fixed"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "opacity",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": true,
                         "stacking": {
                             "group": "A",
                             "mode": "none"
@@ -2102,10 +1898,6 @@
                             {
                                 "color": "green",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     },
@@ -2114,18 +1906,22 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
-                "w": 24,
+                "h": 9,
+                "w": 12,
                 "x": 0,
-                "y": 53
+                "y": 29
             },
             "id": 31,
             "options": {
                 "legend": {
-                    "calcs": [],
+                    "calcs": [
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
                     "displayMode": "list",
                     "placement": "bottom",
-                    "showLegend": false
+                    "showLegend": true
                 },
                 "tooltip": {
                     "hideZeros": false,
@@ -2142,13 +1938,13 @@
                     },
                     "editorMode": "builder",
                     "expr": "mysterium_avg_bandwidth",
-                    "legendFormat": "__auto",
+                    "legendFormat": "Avg Bandwidth",
                     "range": true,
                     "refId": "A"
                 }
             ],
             "title": "Average Bandwidth",
-            "transparent": true,
+            "transparent": false,
             "type": "timeseries"
         },
         {
@@ -2156,10 +1952,12 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Average public node bandwidth over time.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "palette-classic"
+                        "fixedColor": "semi-dark-green",
+                        "mode": "fixed"
                     },
                     "custom": {
                         "axisBorderShow": false,
@@ -2170,23 +1968,23 @@
                         "barAlignment": 0,
                         "barWidthFactor": 0.6,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
+                        "fillOpacity": 10,
+                        "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
                             "tooltip": false,
                             "viz": false
                         },
                         "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
                         "pointSize": 5,
                         "scaleDistribution": {
                             "type": "linear"
                         },
-                        "showPoints": "auto",
+                        "showPoints": "never",
                         "showValues": false,
-                        "spanNulls": false,
+                        "spanNulls": true,
                         "stacking": {
                             "group": "A",
                             "mode": "none"
@@ -2195,6 +1993,222 @@
                             "mode": "off"
                         }
                     },
+                    "fieldMinMax": false,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "semi-dark-green",
+                                "value": 0
+                            }
+                        ]
+                    },
+                    "unit": "Mbps"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 29
+            },
+            "id": 32,
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "pluginVersion": "12.2.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "cf0sumxa65gcge"
+                    },
+                    "editorMode": "builder",
+                    "expr": "mysterium_avg_public_bandwidth",
+                    "legendFormat": "Avg Public Bandwidth",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Average Public Bandwidth",
+            "transparent": false,
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+            },
+            "description": "Average node quality score over time (0–1). Higher is better.",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "Quality (0–1)",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "scheme",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": true,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "line+area"
+                        }
+                    },
+                    "decimals": 3,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "red",
+                                "value": 0
+                            },
+                            {
+                                "color": "orange",
+                                "value": 0.4
+                            },
+                            {
+                                "color": "yellow",
+                                "value": 0.65
+                            },
+                            {
+                                "color": "green",
+                                "value": 0.8
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 0,
+                "y": 38
+            },
+            "id": 27,
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "pluginVersion": "12.2.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "cf0sumxa65gcge"
+                    },
+                    "editorMode": "builder",
+                    "expr": "mysterium_avg_quality",
+                    "legendFormat": "Avg Quality",
+                    "range": true,
+                    "refId": "A"
+                }
+            ],
+            "title": "Average Quality",
+            "transparent": false,
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+            },
+            "description": "Average node latency over time in milliseconds. Lower is better.",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "scheme",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": true,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "line+area"
+                        }
+                    },
+                    "fieldMinMax": false,
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
@@ -2204,27 +2218,40 @@
                                 "value": 0
                             },
                             {
+                                "color": "yellow",
+                                "value": 50
+                            },
+                            {
+                                "color": "orange",
+                                "value": 150
+                            },
+                            {
                                 "color": "red",
-                                "value": 80
+                                "value": 300
                             }
                         ]
-                    }
+                    },
+                    "unit": "ms"
                 },
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
-                "w": 24,
-                "x": 0,
-                "y": 60
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 38
             },
             "id": 28,
             "options": {
                 "legend": {
-                    "calcs": [],
+                    "calcs": [
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
                     "displayMode": "list",
                     "placement": "bottom",
-                    "showLegend": false
+                    "showLegend": true
                 },
                 "tooltip": {
                     "hideZeros": false,
@@ -2241,13 +2268,13 @@
                     },
                     "editorMode": "builder",
                     "expr": "mysterium_avg_latency",
-                    "legendFormat": "__auto",
+                    "legendFormat": "Avg Latency",
                     "range": true,
                     "refId": "A"
                 }
             ],
             "title": "Average Latency",
-            "transparent": true,
+            "transparent": false,
             "type": "timeseries"
         },
         {
@@ -2255,37 +2282,39 @@
                 "type": "prometheus",
                 "uid": "cf0sumxa65gcge"
             },
+            "description": "Mysterium Network fee (registration & settlement) over time in MYST.",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "palette-classic"
+                        "fixedColor": "orange",
+                        "mode": "fixed"
                     },
                     "custom": {
                         "axisBorderShow": false,
                         "axisCenteredZero": false,
                         "axisColorMode": "text",
-                        "axisLabel": "",
+                        "axisLabel": "MYST",
                         "axisPlacement": "auto",
                         "barAlignment": 0,
                         "barWidthFactor": 0.6,
                         "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
+                        "fillOpacity": 10,
+                        "gradientMode": "opacity",
                         "hideFrom": {
                             "legend": false,
                             "tooltip": false,
                             "viz": false
                         },
                         "insertNulls": false,
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 2,
                         "pointSize": 5,
                         "scaleDistribution": {
                             "type": "linear"
                         },
-                        "showPoints": "auto",
+                        "showPoints": "never",
                         "showValues": false,
-                        "spanNulls": false,
+                        "spanNulls": true,
                         "stacking": {
                             "group": "A",
                             "mode": "none"
@@ -2300,32 +2329,33 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
+                                "color": "orange",
                                 "value": 0
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     },
-                    "unit": "MYST"
+                    "unit": "MYST",
+                    "decimals": 4
                 },
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
+                "h": 9,
                 "w": 24,
                 "x": 0,
-                "y": 67
+                "y": 47
             },
             "id": 33,
             "options": {
                 "legend": {
-                    "calcs": [],
+                    "calcs": [
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
                     "displayMode": "list",
                     "placement": "bottom",
-                    "showLegend": false
+                    "showLegend": true
                 },
                 "tooltip": {
                     "hideZeros": false,
@@ -2342,29 +2372,33 @@
                     },
                     "editorMode": "builder",
                     "expr": "mysterium_current_fee",
-                    "legendFormat": "__auto",
+                    "legendFormat": "Network Fee (MYST)",
                     "range": true,
                     "refId": "A"
                 }
             ],
             "title": "Current Network Fee",
-            "transparent": true,
+            "transparent": false,
             "type": "timeseries"
         }
     ],
     "preload": false,
     "schemaVersion": 42,
-    "tags": [],
+    "tags": [
+        "mysterium",
+        "network",
+        "prometheus"
+    ],
     "templating": {
         "list": []
     },
     "time": {
-        "from": "now-6h",
+        "from": "now-24h",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "browser",
     "title": "Mysterium Network Stats",
     "uid": "adrlhrr",
-    "version": 11
+    "version": 12
 }
