@@ -1,15 +1,28 @@
 {
   "annotations": {
-    "list": []
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 2,
+  "id": 0,
   "links": [],
   "panels": [
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -17,647 +30,639 @@
         "y": 0
       },
       "id": 14,
-      "panels": [],
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Total number of active Mysterium Network nodes.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "blue",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 1
+          },
+          "id": 1,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_total_nodes",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Total Nodes",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Total number of publicly accessible Mysterium nodes.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "purple",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "purple",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 4,
+            "y": 1
+          },
+          "id": 2,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_public_nodes",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Public Nodes",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Average quality score across all nodes (0–1 scale). Higher is better.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 3,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": 0
+                  },
+                  {
+                    "color": "orange",
+                    "value": 0.4
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.65
+                  },
+                  {
+                    "color": "green",
+                    "value": 0.8
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 1
+          },
+          "id": 3,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_avg_quality",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Average Quality",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Average latency across all nodes in milliseconds. Lower is better.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 50
+                  },
+                  {
+                    "color": "orange",
+                    "value": 150
+                  },
+                  {
+                    "color": "red",
+                    "value": 300
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 12,
+            "y": 1
+          },
+          "id": 4,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_avg_latency",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Average Latency",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Total aggregated bandwidth across all nodes.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "dark-green",
+                "mode": "fixed"
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "Tbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 16,
+            "y": 1
+          },
+          "id": 5,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "code",
+              "expr": "mysterium_total_bandwidth / 1e6",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Total Bandwidth",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Total aggregated bandwidth of public nodes only.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "semi-dark-green",
+                "mode": "fixed"
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "semi-dark-green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "Tbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 20,
+            "y": 1
+          },
+          "id": 16,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "code",
+              "expr": "mysterium_total_public_bandwidth / 1e6",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Total Public Bandwidth",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Average bandwidth per node across the entire network.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "Mbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 241
+          },
+          "id": 6,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_avg_bandwidth",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Average Bandwidth",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Average bandwidth per public node.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "semi-dark-green",
+                "mode": "fixed"
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "semi-dark-green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "Mbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 4,
+            "y": 241
+          },
+          "id": 17,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_avg_public_bandwidth",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Average Public Bandwidth",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Current Mysterium Network registration and settlement fee in MYST.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "orange",
+                "mode": "fixed"
+              },
+              "decimals": 4,
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "orange",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "MYST"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 241
+          },
+          "id": 9,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_current_fee",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Current Network Fee",
+          "type": "stat"
+        }
+      ],
       "title": "Network Summary",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Total number of active Mysterium Network nodes.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "blue",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": 0
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 0,
-        "y": 1
-      },
-      "id": 1,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_total_nodes",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Nodes",
-      "transparent": false,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Total number of publicly accessible Mysterium nodes.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "purple",
-                "value": 0
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 4,
-        "y": 1
-      },
-      "id": 2,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_public_nodes",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Public Nodes",
-      "transparent": false,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Average quality score across all nodes (0\u20131 scale). Higher is better.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "orange",
-                "value": 0.4
-              },
-              {
-                "color": "yellow",
-                "value": 0.65
-              },
-              {
-                "color": "green",
-                "value": 0.8
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 8,
-        "y": 1
-      },
-      "id": 3,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_avg_quality",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Average Quality",
-      "transparent": false,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Average latency across all nodes in milliseconds. Lower is better.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "orange",
-                "value": 150
-              },
-              {
-                "color": "red",
-                "value": 300
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 12,
-        "y": 1
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_avg_latency",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Average Latency",
-      "transparent": false,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Total aggregated bandwidth across all nodes.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-green",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "Tbps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 16,
-        "y": 1
-      },
-      "id": 5,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "code",
-          "expr": "mysterium_total_bandwidth / 1e6",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Bandwidth",
-      "transparent": false,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Total aggregated bandwidth of public nodes only.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-green",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "semi-dark-green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "Tbps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 1
-      },
-      "id": 16,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "code",
-          "expr": "mysterium_total_public_bandwidth / 1e6",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Public Bandwidth",
-      "transparent": false,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Average bandwidth per node across the entire network.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "green",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "Mbps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 0,
-        "y": 5
-      },
-      "id": 6,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_avg_bandwidth",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Average Bandwidth",
-      "transparent": false,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Average bandwidth per public node.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-green",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "semi-dark-green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "Mbps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 4,
-        "y": 5
-      },
-      "id": 17,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_avg_public_bandwidth",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Average Public Bandwidth",
-      "transparent": false,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Current Mysterium Network registration and settlement fee in MYST.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "orange",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "orange",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "MYST",
-          "decimals": 4
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 8,
-        "y": 5
-      },
-      "id": 9,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_current_fee",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Current Network Fee",
-      "transparent": false,
-      "type": "stat"
     },
     {
       "collapsed": true,
@@ -665,7 +670,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 1
       },
       "id": 15,
       "panels": [
@@ -681,6 +686,7 @@
                 "fixedColor": "purple",
                 "mode": "fixed"
               },
+              "decimals": 4,
               "fieldMinMax": false,
               "mappings": [],
               "thresholds": {
@@ -692,8 +698,7 @@
                   }
                 ]
               },
-              "unit": "MYST / GiB",
-              "decimals": 4
+              "unit": "MYST / GiB"
             },
             "overrides": []
           },
@@ -701,7 +706,7 @@
             "h": 5,
             "w": 6,
             "x": 0,
-            "y": 10
+            "y": 2
           },
           "id": 10,
           "options": {
@@ -736,7 +741,6 @@
             }
           ],
           "title": "Residential VPN Price",
-          "transparent": false,
           "type": "stat"
         },
         {
@@ -751,6 +755,7 @@
                 "fixedColor": "semi-dark-purple",
                 "mode": "fixed"
               },
+              "decimals": 4,
               "fieldMinMax": false,
               "mappings": [],
               "thresholds": {
@@ -762,8 +767,7 @@
                   }
                 ]
               },
-              "unit": "MYST / GiB",
-              "decimals": 4
+              "unit": "MYST / GiB"
             },
             "overrides": []
           },
@@ -771,7 +775,7 @@
             "h": 5,
             "w": 6,
             "x": 6,
-            "y": 10
+            "y": 2
           },
           "id": 11,
           "options": {
@@ -806,7 +810,6 @@
             }
           ],
           "title": "Residential B2B VPN & Data Transfer",
-          "transparent": false,
           "type": "stat"
         },
         {
@@ -821,6 +824,7 @@
                 "fixedColor": "blue",
                 "mode": "fixed"
               },
+              "decimals": 4,
               "fieldMinMax": false,
               "mappings": [],
               "thresholds": {
@@ -832,8 +836,7 @@
                   }
                 ]
               },
-              "unit": "MYST / GiB",
-              "decimals": 4
+              "unit": "MYST / GiB"
             },
             "overrides": []
           },
@@ -841,7 +844,7 @@
             "h": 5,
             "w": 6,
             "x": 12,
-            "y": 10
+            "y": 2
           },
           "id": 13,
           "options": {
@@ -876,7 +879,6 @@
             }
           ],
           "title": "Residential Wireguard Price",
-          "transparent": false,
           "type": "stat"
         },
         {
@@ -891,6 +893,7 @@
                 "fixedColor": "semi-dark-blue",
                 "mode": "fixed"
               },
+              "decimals": 4,
               "fieldMinMax": false,
               "mappings": [],
               "thresholds": {
@@ -902,8 +905,7 @@
                   }
                 ]
               },
-              "unit": "MYST / GiB",
-              "decimals": 4
+              "unit": "MYST / GiB"
             },
             "overrides": []
           },
@@ -911,7 +913,7 @@
             "h": 5,
             "w": 6,
             "x": 18,
-            "y": 10
+            "y": 2
           },
           "id": 12,
           "options": {
@@ -946,7 +948,6 @@
             }
           ],
           "title": "Residential B2B Data Scraping",
-          "transparent": false,
           "type": "stat"
         },
         {
@@ -961,6 +962,7 @@
                 "fixedColor": "orange",
                 "mode": "fixed"
               },
+              "decimals": 4,
               "fieldMinMax": false,
               "mappings": [],
               "thresholds": {
@@ -972,8 +974,7 @@
                   }
                 ]
               },
-              "unit": "MYST / GiB",
-              "decimals": 4
+              "unit": "MYST / GiB"
             },
             "overrides": []
           },
@@ -981,7 +982,7 @@
             "h": 5,
             "w": 6,
             "x": 0,
-            "y": 15
+            "y": 7
           },
           "id": 18,
           "options": {
@@ -1016,7 +1017,6 @@
             }
           ],
           "title": "Other VPN Price",
-          "transparent": false,
           "type": "stat"
         },
         {
@@ -1031,6 +1031,7 @@
                 "fixedColor": "semi-dark-orange",
                 "mode": "fixed"
               },
+              "decimals": 4,
               "fieldMinMax": false,
               "mappings": [],
               "thresholds": {
@@ -1042,8 +1043,7 @@
                   }
                 ]
               },
-              "unit": "MYST / GiB",
-              "decimals": 4
+              "unit": "MYST / GiB"
             },
             "overrides": []
           },
@@ -1051,7 +1051,7 @@
             "h": 5,
             "w": 6,
             "x": 6,
-            "y": 15
+            "y": 7
           },
           "id": 19,
           "options": {
@@ -1086,7 +1086,6 @@
             }
           ],
           "title": "Other B2B VPN & Data Transfer",
-          "transparent": false,
           "type": "stat"
         },
         {
@@ -1101,6 +1100,7 @@
                 "fixedColor": "dark-orange",
                 "mode": "fixed"
               },
+              "decimals": 4,
               "fieldMinMax": false,
               "mappings": [],
               "thresholds": {
@@ -1112,8 +1112,7 @@
                   }
                 ]
               },
-              "unit": "MYST / GiB",
-              "decimals": 4
+              "unit": "MYST / GiB"
             },
             "overrides": []
           },
@@ -1121,7 +1120,7 @@
             "h": 5,
             "w": 6,
             "x": 12,
-            "y": 15
+            "y": 7
           },
           "id": 20,
           "options": {
@@ -1156,7 +1155,6 @@
             }
           ],
           "title": "Other Wireguard Price",
-          "transparent": false,
           "type": "stat"
         },
         {
@@ -1171,6 +1169,7 @@
                 "fixedColor": "yellow",
                 "mode": "fixed"
               },
+              "decimals": 4,
               "fieldMinMax": false,
               "mappings": [],
               "thresholds": {
@@ -1182,8 +1181,7 @@
                   }
                 ]
               },
-              "unit": "MYST / GiB",
-              "decimals": 4
+              "unit": "MYST / GiB"
             },
             "overrides": []
           },
@@ -1191,7 +1189,7 @@
             "h": 5,
             "w": 6,
             "x": 18,
-            "y": 15
+            "y": 7
           },
           "id": 21,
           "options": {
@@ -1226,7 +1224,6 @@
             }
           ],
           "title": "Other B2B Data Scraping Price",
-          "transparent": false,
           "type": "stat"
         },
         {
@@ -1291,7 +1288,7 @@
             "h": 13,
             "w": 24,
             "x": 0,
-            "y": 20
+            "y": 12
           },
           "id": 22,
           "options": {
@@ -1321,7 +1318,6 @@
             }
           ],
           "title": "Top 10 Countries by Total Bandwidth",
-          "transparent": false,
           "type": "timeseries"
         },
         {
@@ -1386,7 +1382,7 @@
             "h": 13,
             "w": 24,
             "x": 0,
-            "y": 33
+            "y": 25
           },
           "id": 23,
           "options": {
@@ -1416,7 +1412,6 @@
             }
           ],
           "title": "Total Bandwidth by Country (>100 Gbps)",
-          "transparent": false,
           "type": "timeseries"
         }
       ],
@@ -1424,1528 +1419,1535 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 2
       },
       "id": 24,
-      "panels": [],
-      "title": "Advanced \u2014 Trends Over Time",
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Total node count over time.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "blue",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Nodes",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 3
+          },
+          "id": 25,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_total_nodes",
+              "legendFormat": "Total Nodes",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Total Nodes",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Public node count over time.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "purple",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Nodes",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "purple",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 3
+          },
+          "id": 26,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_public_nodes",
+              "legendFormat": "Public Nodes",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Public Nodes",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Total bandwidth (all nodes) over time.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "dark-green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "Tbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 12
+          },
+          "id": 29,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "code",
+              "expr": "mysterium_total_bandwidth / 1e6",
+              "legendFormat": "Total Bandwidth",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Total Bandwidth",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Total public node bandwidth over time.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "semi-dark-green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "semi-dark-green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "Tbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 12
+          },
+          "id": 30,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "code",
+              "expr": "mysterium_total_public_bandwidth / 1e6",
+              "legendFormat": "Total Public Bandwidth",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Total Public Bandwidth",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Average per-node bandwidth over time.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "Mbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 21
+          },
+          "id": 31,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_avg_bandwidth",
+              "legendFormat": "Avg Bandwidth",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Average Bandwidth",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Average public node bandwidth over time.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "semi-dark-green",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "semi-dark-green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "Mbps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 21
+          },
+          "id": 32,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_avg_public_bandwidth",
+              "legendFormat": "Avg Public Bandwidth",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Average Public Bandwidth",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Average node quality score over time (0–1). Higher is better.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Quality (0–1)",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "scheme",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line+area"
+                }
+              },
+              "decimals": 3,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": 0
+                  },
+                  {
+                    "color": "orange",
+                    "value": 0.4
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.65
+                  },
+                  {
+                    "color": "green",
+                    "value": 0.8
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 30
+          },
+          "id": 27,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_avg_quality",
+              "legendFormat": "Avg Quality",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Average Quality",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Average node latency over time in milliseconds. Lower is better.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "scheme",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line+area"
+                }
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 50
+                  },
+                  {
+                    "color": "orange",
+                    "value": 150
+                  },
+                  {
+                    "color": "red",
+                    "value": 300
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 30
+          },
+          "id": 28,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_avg_latency",
+              "legendFormat": "Avg Latency",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Average Latency",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "description": "Mysterium Network fee (registration & settlement) over time in MYST.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "orange",
+                "mode": "fixed"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "MYST",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "showValues": false,
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 4,
+              "fieldMinMax": false,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "orange",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "MYST"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 39
+          },
+          "id": 33,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "editorMode": "builder",
+              "expr": "mysterium_current_fee",
+              "legendFormat": "Network Fee (MYST)",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Current Network Fee",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Advanced — Trends Over Time",
       "type": "row"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Total node count over time.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "blue",
-            "mode": "fixed"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "Nodes",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": 0
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
+      "collapsed": true,
       "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 11
-      },
-      "id": 25,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_total_nodes",
-          "legendFormat": "Total Nodes",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Nodes",
-      "transparent": false,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Public node count over time.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "fixed"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "Nodes",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "purple",
-                "value": 0
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 11
-      },
-      "id": 26,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_public_nodes",
-          "legendFormat": "Public Nodes",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Public Nodes",
-      "transparent": false,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Total bandwidth (all nodes) over time.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-green",
-            "mode": "fixed"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "Tbps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 20
-      },
-      "id": 29,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "code",
-          "expr": "mysterium_total_bandwidth / 1e6",
-          "legendFormat": "Total Bandwidth",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Bandwidth",
-      "transparent": false,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Total public node bandwidth over time.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-green",
-            "mode": "fixed"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "semi-dark-green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "Tbps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 20
-      },
-      "id": 30,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "code",
-          "expr": "mysterium_total_public_bandwidth / 1e6",
-          "legendFormat": "Total Public Bandwidth",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Public Bandwidth",
-      "transparent": false,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Average per-node bandwidth over time.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "green",
-            "mode": "fixed"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "Mbps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 29
-      },
-      "id": 31,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_avg_bandwidth",
-          "legendFormat": "Avg Bandwidth",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Average Bandwidth",
-      "transparent": false,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Average public node bandwidth over time.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-green",
-            "mode": "fixed"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "semi-dark-green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "Mbps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 29
-      },
-      "id": 32,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_avg_public_bandwidth",
-          "legendFormat": "Avg Public Bandwidth",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Average Public Bandwidth",
-      "transparent": false,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Average node quality score over time (0\u20131). Higher is better.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "Quality (0\u20131)",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "line+area"
-            }
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "orange",
-                "value": 0.4
-              },
-              {
-                "color": "yellow",
-                "value": 0.65
-              },
-              {
-                "color": "green",
-                "value": 0.8
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 38
-      },
-      "id": 27,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_avg_quality",
-          "legendFormat": "Avg Quality",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Average Quality",
-      "transparent": false,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Average node latency over time in milliseconds. Lower is better.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "scheme",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "line+area"
-            }
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "orange",
-                "value": 150
-              },
-              {
-                "color": "red",
-                "value": 300
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 38
-      },
-      "id": 28,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_avg_latency",
-          "legendFormat": "Avg Latency",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Average Latency",
-      "transparent": false,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "description": "Mysterium Network fee (registration & settlement) over time in MYST.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "orange",
-            "mode": "fixed"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "MYST",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "orange",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "MYST",
-          "decimals": 4
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
+        "h": 1,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 3
       },
-      "id": 33,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max",
-            "min"
-          ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "editorMode": "builder",
-          "expr": "mysterium_current_fee",
-          "legendFormat": "Network Fee (MYST)",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Current Network Fee",
-      "transparent": false,
-      "type": "timeseries"
-    },
-    {
       "id": 34,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 100
+                  },
+                  {
+                    "color": "red",
+                    "value": 500
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 293
+          },
+          "id": 35,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {},
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_p50_latency",
+              "legendFormat": "Latency p50 (Median)",
+              "refId": "A"
+            }
+          ],
+          "title": "Latency p50 (Median)",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 300
+                  },
+                  {
+                    "color": "red",
+                    "value": 1000
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 6,
+            "x": 6,
+            "y": 293
+          },
+          "id": 36,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {},
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_p95_latency",
+              "legendFormat": "Latency p95",
+              "refId": "A"
+            }
+          ],
+          "title": "Latency p95",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 100
+                  },
+                  {
+                    "color": "red",
+                    "value": 500
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 6,
+            "x": 12,
+            "y": 293
+          },
+          "id": 37,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {},
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_p50_public_latency",
+              "legendFormat": "Public Latency p50",
+              "refId": "A"
+            }
+          ],
+          "title": "Public Latency p50",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 300
+                  },
+                  {
+                    "color": "red",
+                    "value": 1000
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 6,
+            "x": 18,
+            "y": 293
+          },
+          "id": 38,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {},
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_p95_public_latency",
+              "legendFormat": "Public Latency p95",
+              "refId": "A"
+            }
+          ],
+          "title": "Public Latency p95",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cf0sumxa65gcge"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 334
+          },
+          "id": 39,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_avg_latency",
+              "legendFormat": "avg",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_p50_latency",
+              "legendFormat": "p50 (median)",
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_p95_latency",
+              "legendFormat": "p95",
+              "refId": "C"
+            }
+          ],
+          "title": "Latency Percentiles Over Time",
+          "type": "timeseries"
+        }
+      ],
       "title": "Latency Percentiles",
-      "type": "row",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
       "gridPos": {
-        "x": 0,
-        "y": 56,
+        "h": 1,
         "w": 24,
-        "h": 1
-      },
-      "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      }
-    },
-    {
-      "id": 35,
-      "title": "Latency p50 (Median)",
-      "type": "stat",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "gridPos": {
         "x": 0,
-        "y": 57,
-        "w": 6,
-        "h": 4
+        "y": 4
       },
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
-        "text": {}
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "decimals": 0,
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 100
-              },
-              {
-                "color": "red",
-                "value": 500
-              }
-            ]
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "mysterium_p50_latency",
-          "legendFormat": "Latency p50 (Median)",
-          "refId": "A"
-        }
-      ],
-      "pluginVersion": "10.0.0"
-    },
-    {
-      "id": 36,
-      "title": "Latency p95",
-      "type": "stat",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "gridPos": {
-        "x": 6,
-        "y": 57,
-        "w": 6,
-        "h": 4
-      },
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
-        "text": {}
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "decimals": 0,
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 300
-              },
-              {
-                "color": "red",
-                "value": 1000
-              }
-            ]
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "mysterium_p95_latency",
-          "legendFormat": "Latency p95",
-          "refId": "A"
-        }
-      ],
-      "pluginVersion": "10.0.0"
-    },
-    {
-      "id": 37,
-      "title": "Public Latency p50",
-      "type": "stat",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "gridPos": {
-        "x": 12,
-        "y": 57,
-        "w": 6,
-        "h": 4
-      },
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
-        "text": {}
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "decimals": 0,
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 100
-              },
-              {
-                "color": "red",
-                "value": 500
-              }
-            ]
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "mysterium_p50_public_latency",
-          "legendFormat": "Public Latency p50",
-          "refId": "A"
-        }
-      ],
-      "pluginVersion": "10.0.0"
-    },
-    {
-      "id": 38,
-      "title": "Public Latency p95",
-      "type": "stat",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "gridPos": {
-        "x": 18,
-        "y": 57,
-        "w": 6,
-        "h": 4
-      },
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
-        "text": {}
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "decimals": 0,
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 300
-              },
-              {
-                "color": "red",
-                "value": 1000
-              }
-            ]
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "mysterium_p95_public_latency",
-          "legendFormat": "Public Latency p95",
-          "refId": "A"
-        }
-      ],
-      "pluginVersion": "10.0.0"
-    },
-    {
-      "id": 39,
-      "title": "Latency Percentiles Over Time",
-      "type": "timeseries",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "gridPos": {
-        "x": 0,
-        "y": 61,
-        "w": 24,
-        "h": 9
-      },
-      "options": {
-        "tooltip": {
-          "mode": "multi"
-        },
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "lineWidth": 2,
-            "fillOpacity": 10
-          }
-        },
-        "overrides": []
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "mysterium_avg_latency",
-          "legendFormat": "avg",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "mysterium_p50_latency",
-          "legendFormat": "p50 (median)",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "mysterium_p95_latency",
-          "legendFormat": "p95",
-          "refId": "C"
-        }
-      ],
-      "pluginVersion": "10.0.0"
-    },
-    {
-      "id": 40,
-      "title": "Top Countries",
-      "type": "row",
-      "gridPos": {
-        "x": 0,
-        "y": 70,
-        "w": 24,
-        "h": 1
-      },
-      "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      }
-    },
-    {
-      "id": 41,
-      "title": "Top Countries by Node Count",
-      "type": "barchart",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "gridPos": {
-        "x": 0,
-        "y": 71,
-        "w": 12,
-        "h": 10
-      },
-      "options": {
-        "orientation": "horizontal",
-        "legend": {
-          "displayMode": "hidden"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "topk(10, {__name__=~\"mysterium_nodes_.+\", __name__!~\"mysterium_nodes_service_.+\"})",
-          "legendFormat": "{{__name__}}",
-          "refId": "A",
-          "instant": true
-        }
-      ],
-      "pluginVersion": "10.0.0"
-    },
-    {
-      "id": 42,
-      "title": "Top Countries by Bandwidth (Mbps)",
-      "type": "barchart",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "gridPos": {
-        "x": 12,
-        "y": 71,
-        "w": 12,
-        "h": 10
-      },
-      "options": {
-        "orientation": "horizontal",
-        "legend": {
-          "displayMode": "hidden"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Mbps",
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "topk(10, {__name__=~\"mysterium_bandwidth_.+\"})",
-          "legendFormat": "{{__name__}}",
-          "refId": "A",
-          "instant": true
-        }
-      ],
-      "pluginVersion": "10.0.0"
-    },
-    {
       "id": 43,
-      "title": "Nodes by Service Type (timeseries)",
-      "type": "row",
-      "gridPos": {
-        "x": 0,
-        "y": 81,
-        "w": 24,
-        "h": 1
-      },
-      "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      }
-    },
-    {
-      "id": 44,
-      "title": "Nodes per Service Type",
-      "type": "timeseries",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cf0sumxa65gcge"
-      },
-      "gridPos": {
-        "x": 0,
-        "y": 82,
-        "w": 24,
-        "h": 9
-      },
-      "options": {
-        "tooltip": {
-          "mode": "multi"
-        },
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        }
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "lineWidth": 2,
-            "fillOpacity": 10
-          }
-        },
-        "overrides": []
-      },
-      "targets": [
+      "panels": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "cf0sumxa65gcge"
           },
-          "expr": "mysterium_nodes_service_wireguard",
-          "legendFormat": "wireguard",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
           },
-          "expr": "mysterium_nodes_service_scraping",
-          "legendFormat": "scraping",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 294
           },
-          "expr": "mysterium_nodes_service_quic_scraping",
-          "legendFormat": "quic_scraping",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
+          "id": 44,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
           },
-          "expr": "mysterium_nodes_service_dvpn",
-          "legendFormat": "dvpn",
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "mysterium_nodes_service_data_transfer",
-          "legendFormat": "data_transfer",
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cf0sumxa65gcge"
-          },
-          "expr": "mysterium_nodes_service_monitoring",
-          "legendFormat": "monitoring",
-          "refId": "F"
+          "pluginVersion": "12.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_nodes_service_wireguard",
+              "legendFormat": "wireguard",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_nodes_service_scraping",
+              "legendFormat": "scraping",
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_nodes_service_quic_scraping",
+              "legendFormat": "quic_scraping",
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_nodes_service_dvpn",
+              "legendFormat": "dvpn",
+              "refId": "D"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_nodes_service_data_transfer",
+              "legendFormat": "data_transfer",
+              "refId": "E"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "cf0sumxa65gcge"
+              },
+              "expr": "mysterium_nodes_service_monitoring",
+              "legendFormat": "monitoring",
+              "refId": "F"
+            }
+          ],
+          "title": "Nodes per Service Type",
+          "type": "timeseries"
         }
       ],
-      "pluginVersion": "10.0.0"
+      "title": "Nodes by Service Type (timeseries)",
+      "type": "row"
     }
   ],
   "preload": false,
+  "refresh": "5s",
   "schemaVersion": 42,
   "tags": [
     "mysterium",
@@ -2956,12 +2958,12 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Mysterium Network Stats",
   "uid": "adrlhrr",
-  "version": 12
+  "version": 27
 }
