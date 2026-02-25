@@ -1,6 +1,6 @@
 # Mysterium Metrics Collector
 
-The **Mysterium Metrics Collector** is an Express.js application designed to fetch and expose metrics from the Mysterium Network API. It gathers various statistics about Mysterium nodes, including proposals, registration fees, and service pricing, and makes them available for monitoring.
+An Express.js service that aggregates live Mysterium Network data and exposes it as both a JSON API and a Prometheus metrics endpoint for Grafana dashboards.
 
 ---
 
@@ -9,24 +9,20 @@ The **Mysterium Metrics Collector** is an Express.js application designed to fet
 - [Project Structure](#project-structure)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Configuration](#configuration)
 - [API Endpoints](#api-endpoints)
-- [Metrics](#metrics)
+- [Prometheus Metrics](#prometheus-metrics)
 - [License](#license)
 
 ---
 
 ## Features
-- Fetches all proposals from the Mysterium Network.
-- Retrieves public proposals.
-- Obtains registration fees in human-readable format.
-- Gathers service pricing information.
-- Exposes metrics for monitoring Mysterium nodes.
-- Modular architecture with separation of concerns.
-- Prometheus metrics integration.
-- Real-time dashboard with Chart.js visualizations.
-- Country-specific node and bandwidth statistics.
+- Aggregates live node statistics from the Mysterium Discovery API (41k+ nodes)
+- Tracks quality, latency, uptime, packet loss, and per-service-type breakdown
+- Exposes full pricing for all 6 service types (wireguard, scraping, quic_scraping, data_transfer, dvpn, monitoring)
+- Prometheus metrics endpoint for Grafana scraping
+- Per-country node count and bandwidth breakdown
+- Modular Express.js architecture
 
 ---
 
@@ -35,27 +31,29 @@ The **Mysterium Metrics Collector** is an Express.js application designed to fet
 ```
 mysterium-metrics-collector/
 ├── src/
-│   ├── config/              # Configuration files
-│   │   └── index.js         # App configuration
-│   ├── services/            # External API services
-│   │   └── mysteriumApi.js  # Mysterium API calls
-│   ├── metrics/             # Prometheus metrics
-│   │   └── prometheusMetrics.js
-│   ├── controllers/         # Route controllers
-│   │   ├── metricsController.js
-│   │   └── dataController.js
-│   ├── routes/              # Route definitions
+│   ├── config/              # App configuration
 │   │   └── index.js
-│   ├── middleware/          # Express middleware
+│   ├── services/            # Mysterium API clients
+│   │   └── mysteriumApi.js
+│   ├── metrics/             # Prometheus gauge definitions
+│   │   └── prometheusMetrics.js
+│   ├── controllers/         # Route handlers
+│   │   ├── metricsController.js   # / and /metrics
+│   │   └── dataController.js      # All other endpoints
+│   ├── routes/              # Express router
+│   │   └── index.js
+│   ├── middleware/
 │   │   └── errorHandler.js
-│   ├── utils/               # Helper functions
-│   │   └── calculations.js
-│   └── app.js               # Express app setup
-├── public/                  # Static frontend files
+│   ├── utils/
+│   │   └── calculations.js  # Aggregation helpers
+│   └── app.js
+├── public/                  # Live dashboard (Chart.js)
 │   ├── dashboard.html
 │   ├── dashboard.js
 │   └── styles.css
-├── index.js                 # Application entry point
+├── grafana/                 # Grafana dashboard JSON
+│   └── mysterium-network-stats.json
+├── index.js                 # Entry point
 ├── package.json
 └── README.md
 ```
@@ -63,111 +61,152 @@ mysterium-metrics-collector/
 ---
 
 ## Requirements
-- **Node.js** (version 14 or higher)
-- **npm** (Node package manager)
+- **Node.js** 14+
+- **npm**
 
 ---
 
 ## Installation
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/adinetech/mysterium-metrics-collector.git
-    cd mysterium-metrics-collector
-    ```
 
-2. Install dependencies:
-    ```bash
-    npm install
-    ```
-
-3. (Optional) Create a `.env` file for custom configuration:
-    ```bash
-    cp .env.example .env
-    # Edit .env with your settings
-    ```
+```bash
+git clone https://github.com/adinetech/mysterium-metrics-collector.git
+cd mysterium-metrics-collector
+npm install
+```
 
 ---
 
 ## Configuration
 
-You can configure the application using environment variables. Create a `.env` file in the root directory:
+Create a `.env` file in the root (optional — defaults work out of the box):
 
 ```env
 PORT=80
 NODE_ENV=production
-REFRESH_INTERVAL=60000
 ```
 
-**Configuration Options:**
-- `PORT` - Server port (default: 80)
-- `NODE_ENV` - Environment mode (development/production)
-- `REFRESH_INTERVAL` - Metrics refresh interval in milliseconds (default: 60000)
+| Variable | Default | Description |
+|---|---|---|
+| `PORT` | `80` | HTTP port to listen on |
+| `NODE_ENV` | `production` | Environment mode |
 
 ---
 
 ## Usage
-To start the server, run:
+
 ```bash
 node index.js
 ```
 
-The server will run on http://localhost.
+Server starts at `http://localhost`. Hit `GET /` for a full live snapshot.
 
-Main endpoint to fetch node statistics:
-```
-GET http://localhost/
-```
+---
 
 ## API Endpoints
 
-### Base URL
-https://mysterium-api.adinetech.com/
+Base URL: `https://mysterium-api.adinetech.com`
 
-### `GET /help`
-**Description**: Returns a JSON response containing the list of usable API Endpoints.
+### `GET /`
+Full aggregated network snapshot. Also updates all Prometheus gauges.
+
+**Response fields:**
+| Field | Description |
+|---|---|
+| `total_nodes` | All nodes (all access policies) |
+| `avg_quality` | Average quality score (0–3 scale) |
+| `avg_latency` | Average latency in ms |
+| `avg_uptime` | Average uptime in hours |
+| `avg_packet_loss` | Average packet loss % |
+| `total_bandwidth` | Total bandwidth in Mbps |
+| `avg_bandwidth` | Average bandwidth per node in Mbps |
+| `nodes_per_service_type` | Node count per service type (dvpn, wireguard, scraping, quic_scraping, data_transfer, monitoring) |
+| `public_nodes` | Nodes with public access policy |
+| `pub_avg_quality` | Public node average quality |
+| `pub_avg_latency` | Public node average latency (ms) |
+| `pub_avg_uptime` | Public node average uptime (hrs) |
+| `pub_avg_packet_loss` | Public node average packet loss % |
+| `pub_total_bandwidth` | Public node total bandwidth (Mbps) |
+| `pub_avg_bandwidth` | Public node average bandwidth (Mbps) |
+| `current_fee` | Registration/settlement fee in MYST (chain 137) |
+| `residential_wireguard_gib` … `other_monitoring_gib` | Pricing per GiB in MYST for all 12 service/category combinations |
+| `bandwidthPerCountry` | Bandwidth per country (Mbps) |
+| `nodes_per_country` | Node count per country |
+
+---
 
 ### `GET /metrics`
-**Description**: Exposes Prometheus metrics for monitoring.
+Prometheus scrape endpoint. Returns all gauges in Prometheus text format.
 
-### `GET /fee`:
-**Description**: Retrieves the current registration / settlement fee in MYST from the Transactor API.
+---
 
-### `GET /price`:
-**Description**: Fetches service pricing details from the Discovery API, including various pricing metrics for residential and other services.
+### `GET /price`
+Raw pricing response from the Mysterium Discovery API (`/api/v4/prices`). Contains full per-service-type pricing for both residential and other categories.
 
-### `GET /proposals`:
-**Description**: Returns a list of all proposals from the Mysterium network.
+---
 
-### `GET /providers`:
-**Description**: Provides the total count of providers available in the network.
+### `GET /proposals`
+Full raw proposals array from the Mysterium Discovery API. Large payload (~40k entries).
 
-### `GET /total_bandwidth`:
-**Description**: Calculates and returns the total bandwidth across all Mysterium nodes in Gbps.
+---
 
-### `GET /public_total_bandwidth`:
-**Description**: Calculates and returns the total bandwidth specifically for public Mysterium nodes in Gbps.
+### `GET /nodes_per_country`
+Node count per country (all countries).
 
-### `GET /avg_quality`:
-**Description**: Computes and returns the average quality of all Mysterium nodes.
+```json
+{ "nodesPerCountry": { "US": 944, "DE": 952, ... } }
+```
 
-### `GET /public_avg_quality`:
-**Description**: Computes and returns the average quality specifically for public Mysterium nodes.
+### `GET /nodes_per_country/:countryCode`
+Node count for a single country (ISO 3166-1 alpha-2).
+```
+GET /nodes_per_country/US → { "countryCode": "US", "count": 944 }
+```
 
-### `GET /avg_latency`:
-**Description**: Computes and returns the average latency of all Mysterium nodes.
+---
 
-### `GET /public_avg_latency`:
-**Description**: Computes and returns the average latency specifically for public Mysterium nodes.
+### `GET /bandwidth_per_country`
+Total bandwidth (Mbps) per country (all countries).
 
-### `GET /public_providers`:
-**Description**: Returns a count of public providers currently available in the network.
+### `GET /bandwidth_per_country/:countryCode`
+Bandwidth for a single country.
+```
+GET /bandwidth_per_country/DE → { "countryCode": "DE", "bandwidth": 197636.57 }
+```
 
-## Metrics
+---
 
-The application uses `prom-client` to expose various metrics related to Mysterium nodes.
+### `GET /help`
+Returns the full endpoint list with descriptions as JSON.
 
-Metrics can be accessed at [http://localhost/metrics](http://localhost/metrics).
+---
+
+## Prometheus Metrics
+
+All metrics are prefixed `mysterium_`. Key gauges:
+
+| Metric | Description |
+|---|---|
+| `mysterium_total_nodes` | Total node count |
+| `mysterium_public_nodes` | Public node count |
+| `mysterium_avg_quality` | Avg quality (0–3) |
+| `mysterium_avg_latency` | Avg latency (ms) |
+| `mysterium_avg_uptime` | Avg uptime (hours) |
+| `mysterium_avg_packet_loss` | Avg packet loss % |
+| `mysterium_total_bandwidth` | Total bandwidth (Mbps) |
+| `mysterium_current_fee` | Fee in MYST |
+| `mysterium_residential_wireguard_gib` | Residential wireguard price/GiB |
+| `mysterium_residential_quic_scraping_gib` | Residential QUIC scraping price/GiB |
+| `mysterium_residential_monitoring_gib` | Residential monitoring price/GiB |
+| `mysterium_other_*` | Same set for non-residential |
+| `mysterium_nodes_<CC>` | Node count per country (dynamic, e.g. `mysterium_nodes_US`) |
+| `mysterium_bandwidth_<CC>` | Bandwidth per country (dynamic) |
+| `mysterium_nodes_service_<type>` | Node count per service type (dynamic) |
+| _(+ public variants for quality, latency, uptime, packet loss, bandwidth)_ | |
+
+Metrics are scraped at `GET /metrics` and updated on every `GET /` request.
+
+---
 
 ## License
 
-This project is licensed under the MIT License.
+MIT
