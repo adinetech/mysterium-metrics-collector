@@ -27,7 +27,7 @@ export function calculateMetrics(data) {
     if (item.quality) {
       nodesWithQuality++;
       totalQuality += item.quality.quality || 0;
-      totalLatency += item.quality.latency || 0;
+      totalLatency += Math.min(item.quality.latency || 0, 10000); // cap at 10s — excludes dead-node outliers (e.g. 8.6M ms)
       totalBandwidth += item.quality.bandwidth || 0;
       totalUptime += item.quality.uptime || 0;
       totalPacketLoss += item.quality.packetLoss || 0;
